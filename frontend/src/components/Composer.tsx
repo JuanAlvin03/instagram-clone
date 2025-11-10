@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { db } from '../db'
 
 function id() {
-  return (globalThis.crypto && (globalThis.crypto as any).randomUUID)
-    ? (globalThis.crypto as any).randomUUID()
-    : Math.random().toString(36).slice(2, 9)
+  // prefer the secure UUID when available
+  return globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2, 9)
 }
 
 const Composer: React.FC = () => {
@@ -27,7 +26,7 @@ const Composer: React.FC = () => {
     })
     setFile(null)
     setCaption('')
-    // simple page refresh to show new post (you can implement state-based refresh later)
+    // simple page refresh to show new post (replace later with state updates)
     window.location.reload()
   }
 

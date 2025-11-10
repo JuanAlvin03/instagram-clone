@@ -1,13 +1,8 @@
-import React, { createContext, useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { db } from '../db'
 import { seedIfEmpty } from '../db/seed'
-
-const DexieContext = createContext(db)
-
-export function useDB() {
-  return useContext(DexieContext)
-}
+import { DexieContext } from './db'
 
 const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
   // seed DB on first mount for convenience
