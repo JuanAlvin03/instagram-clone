@@ -1,0 +1,35 @@
+// Minimal shared types for the demo app
+export type ID = string
+
+export type User = {
+  id: ID
+  username: string
+  name?: string
+  avatarKey?: string // key into blobs table
+  bio?: string
+}
+
+export type Post = {
+  id: ID
+  authorId: ID
+  imageKey: string
+  caption?: string
+  createdAt: number
+  likeCount: number
+  commentsCount: number
+}
+
+export type Like = {
+  id: ID
+  postId: ID
+  userId: ID
+  createdAt: number
+}
+
+export type Comment = {
+  id: ID
+  postId: ID
+  userId: ID
+  text: string
+  createdAt: number
+}
