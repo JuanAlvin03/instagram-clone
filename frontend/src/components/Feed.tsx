@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../db'
 import type { Post as PostType } from '../types/models'
-import PostCard from './PostCard'
+import PostCard from './post/PostCard'
 
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<PostType[]>([])
