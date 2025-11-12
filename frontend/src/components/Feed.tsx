@@ -1,3 +1,4 @@
+// components/Feed.tsx
 import React, { useEffect, useState } from 'react'
 import { db } from '../db'
 import type { Post as PostType } from '../types/models'
@@ -23,7 +24,7 @@ const Feed: React.FC = () => {
   }, [])
 
   return (
-    <section className="grid gap-4">
+    <section className="flex flex-col items-center gap-6 py-6">
       {posts.map((p) => (
         <PostCard key={p.id} post={p} />
       ))}

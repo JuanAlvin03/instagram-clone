@@ -1,10 +1,11 @@
+// components/post/PostCard.tsx
 import React, { useEffect, useRef, useState } from 'react'
-import type { Post, User } from '../../types/models'
+import { Card } from '@/components/ui/card'
 import { db } from '../../db'
-
-import PostHeader from "./PostHeader"
-import PostImage from "./PostImage"
-import PostCaption from "./PostCaption"
+import type { Post, User } from '../../types/models'
+import PostHeader from './PostHeader'
+import PostImage from './PostImage'
+import PostFooter from './PostFooter'
 
 const PostCard: React.FC<{ post: Post }> = ({ post }) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null)
@@ -15,26 +16,21 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
     let mounted = true
     ;(async () => {
       try {
-        // fetch image blob + author data from IndexedDB
         const blobRec = await db.blobs.get(post.imageKey)
         const u = blobRec ? URL.createObjectURL(blobRec.data) : null
         const a = await db.users.get(post.authorId)
-
         if (!mounted) return
-        // cleanup previous blob URLs
         if (createdUrl.current) {
           URL.revokeObjectURL(createdUrl.current)
           createdUrl.current = null
         }
-
         createdUrl.current = u
         setImageUrl(u)
         setAuthor(a ?? null)
       } catch (e) {
-        console.warn("postcard load error", e)
+        console.warn('postcard load error', e)
       }
     })()
-
     return () => {
       mounted = false
       if (createdUrl.current) {
@@ -45,11 +41,11 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
   }, [post.imageKey, post.authorId])
 
   return (
-    <article className="border rounded-md overflow-hidden">
+    <Card className="overflow-hidden max-w-md w-full rounded-2xl bg-card border border-border shadow-sm">
       <PostHeader author={author} />
-      <PostImage imageUrl={imageUrl} alt={post.caption ?? "post image"} />
-      <PostCaption caption={post.caption} />
-    </article>
+      <PostImage imageUrl={imageUrl} caption={post.caption} />
+      <PostFooter caption={post.caption} />
+    </Card>
   )
 }
 

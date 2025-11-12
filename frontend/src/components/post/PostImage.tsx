@@ -1,12 +1,23 @@
-type PostImageProps = {
+// components/post/PostImage.tsx
+import React from 'react'
+
+interface Props {
   imageUrl: string | null
-  alt?: string
+  caption?: string | null
 }
 
-export default function PostImage({ imageUrl, alt }: PostImageProps) {
-  if (!imageUrl) {
-    return <div className="h-48 bg-gray-100" />
-  }
-
-  return <img src={imageUrl} alt={alt ?? "post image"} />
+const PostImage: React.FC<Props> = ({ imageUrl, caption }) => {
+  return (
+    <div className="relative bg-muted">
+      {imageUrl ? (
+        <img src={imageUrl} alt={caption ?? 'Post image'} className="w-full object-cover" />
+      ) : (
+        <div className="h-64 bg-muted flex items-center justify-center text-muted-foreground text-sm">
+          No image
+        </div>
+      )}
+    </div>
+  )
 }
+
+export default PostImage
