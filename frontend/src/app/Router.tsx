@@ -1,27 +1,31 @@
-import React from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
-import Home from '../pages/Home'
-import Explore from '../pages/Explore'
-import ProfilePage from '../pages/ProfilePage'
+import React from "react"
+import { Routes, Route } from "react-router-dom"
+import Home from "../pages/Home"
+import Explore from "../pages/Explore"
+import ProfilePage from "../pages/ProfilePage"
+import SidebarNav from "../components/nav/SidebarNav"
+import BottomNav from "../components/nav/BottomNav"
 
 const Router: React.FC = () => {
   return (
-    <>
-      <header className="p-4 border-b">
-        <nav className="container mx-auto flex gap-4">
-          <Link to="/">Home</Link>
-          <Link to="/explore">Explore</Link>
-          <Link to="/profile">Profile</Link>
-        </nav>
-      </header>
-      <main className="container mx-auto p-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/profile" element={<ProfilePage />} />
-        </Routes>
+    <div className="flex">
+      {/* Sidebar for desktop */}
+      <SidebarNav />
+
+      {/* Main feed */}
+      <main className="flex-1 md:ml-60 flex justify-center p-4">
+        <div className="w-full max-w-xl">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Routes>
+        </div>
       </main>
-    </>
+
+      {/* Bottom nav for mobile */}
+      <BottomNav />
+    </div>
   )
 }
 
