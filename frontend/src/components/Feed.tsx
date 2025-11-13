@@ -1,8 +1,8 @@
-// components/Feed.tsx
-import React, { useEffect, useState } from 'react'
-import { db } from '../db'
-import type { Post as PostType } from '../types/models'
-import PostCard from './post/PostCard'
+// src/components/Feed.tsx
+import React, { useEffect, useState } from "react"
+import { db } from "../db"
+import type { Post as PostType } from "../types/models"
+import PostCard from "./post/PostCard"
 
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<PostType[]>([])
@@ -11,11 +11,11 @@ const Feed: React.FC = () => {
     let mounted = true
     ;(async () => {
       try {
-        const all = await db.posts.orderBy('createdAt').reverse().toArray()
+        const all = await db.posts.orderBy("createdAt").reverse().toArray()
         if (!mounted) return
         setPosts(all)
       } catch (e) {
-        console.warn('feed load error', e)
+        console.warn("feed load error", e)
       }
     })()
     return () => {
@@ -24,10 +24,12 @@ const Feed: React.FC = () => {
   }, [])
 
   return (
-    <section className="flex flex-col items-center gap-6 py-6">
-      {posts.map((p) => (
-        <PostCard key={p.id} post={p} />
-      ))}
+    <section className="flex flex-col items-center w-full gap-6 py-6">
+      {posts.length > 0 ? (
+        posts.map((p) => <PostCard key={p.id} post={p} />)
+      ) : (
+        <p className="text-muted-foreground">No posts yet.</p>
+      )}
     </section>
   )
 }

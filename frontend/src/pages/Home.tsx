@@ -3,7 +3,7 @@ import Feed from '../components/Feed'
 
 const Home: React.FC = () => {
   return (
-    <div className="grid gap-4">
+    <div className="flex flex-col items-center justify-start w-full max-w-xl mx-auto gap-4">
       <Feed />
     </div>
   )

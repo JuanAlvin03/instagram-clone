@@ -13,13 +13,13 @@ const Router: React.FC = () => {
   const [showComposer, setShowComposer] = useState(false)
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-background text-foreground">
       {/* Sidebar (Desktop) */}
       <SidebarNav onCreateClick={() => setShowComposer(true)} />
 
-      {/* Main content */}
+      {/* Main content area */}
       <main className="flex-1 md:ml-60 flex justify-center p-4">
-        <div className="w-full max-w-xl">
+        <div className="w-full max-w-xl mx-auto">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
