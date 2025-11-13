@@ -8,9 +8,13 @@ interface Props {
 
 const PostImage: React.FC<Props> = ({ imageUrl, caption }) => {
   return (
-    <div className="relative bg-muted">
+    <div className="relative bg-muted flex justify-center">
       {imageUrl ? (
-        <img src={imageUrl} alt={caption ?? 'Post image'} className="w-full object-cover" />
+        <img
+          src={imageUrl}
+          alt={caption ?? 'Post image'}
+          className="w-full h-auto object-contain"
+        />
       ) : (
         <div className="h-64 bg-muted flex items-center justify-center text-muted-foreground text-sm">
           No image
@@ -19,5 +23,6 @@ const PostImage: React.FC<Props> = ({ imageUrl, caption }) => {
     </div>
   )
 }
+
 
 export default PostImage

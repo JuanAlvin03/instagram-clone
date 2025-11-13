@@ -75,7 +75,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+/*
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -87,6 +87,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
@@ -94,7 +95,23 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+*/
+button {
+  @apply rounded-md border border-transparent px-3 py-1.5 font-medium text-sm transition-colors duration-200;
+  background-color: transparent;
+  color: inherit;
+  cursor: pointer;
+}
 
+/* Hover effect — subtle gray/white tint depending on theme */
+button:hover {
+  @apply bg-muted/50;
+}
+
+/* Focus — thin ring for accessibility, but no blue default outline */
+button:focus-visible {
+  @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -104,7 +121,11 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: transparent;
+    color: inherit;
+  }
+  button:hover {
+    @apply bg-muted/30;
   }
 }
 
