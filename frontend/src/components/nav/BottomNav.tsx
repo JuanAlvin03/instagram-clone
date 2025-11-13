@@ -1,28 +1,26 @@
-import { Home, Search, Compass, User } from "lucide-react"
+// src/components/nav/BottomNav.tsx
+import { Home, Compass, User, PlusSquare } from "lucide-react"
 import { NavLink } from "react-router-dom"
 
-const BottomNav = () => {
-  const navItems = [
-    { to: "/", icon: <Home className="w-6 h-6" />, label: "Home" },
-    { to: "/explore", icon: <Search className="w-6 h-6" />, label: "Search" },
-    { to: "/profile", icon: <User className="w-6 h-6" />, label: "Profile" },
-  ]
+interface BottomNavProps {
+  onCreateClick: () => void
+}
 
+const BottomNav = ({ onCreateClick }: BottomNavProps) => {
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-background border-t border-border flex justify-around items-center py-2 md:hidden">
-      {navItems.map((item) => (
-        <NavLink
-          key={item.to}
-          to={item.to}
-          className={({ isActive }) =>
-            `flex flex-col items-center ${
-              isActive ? "text-primary" : "text-muted-foreground"
-            }`
-          }
-        >
-          {item.icon}
-        </NavLink>
-      ))}
+      <NavLink to="/" className={({ isActive }) => (isActive ? "text-primary" : "text-muted-foreground")}>
+        <Home className="w-6 h-6" />
+      </NavLink>
+      <NavLink to="/explore" className={({ isActive }) => (isActive ? "text-primary" : "text-muted-foreground")}>
+        <Compass className="w-6 h-6" />
+      </NavLink>
+      <button onClick={onCreateClick}>
+        <PlusSquare className="w-6 h-6 text-muted-foreground hover:text-primary transition" />
+      </button>
+      <NavLink to="/profile" className={({ isActive }) => (isActive ? "text-primary" : "text-muted-foreground")}>
+        <User className="w-6 h-6" />
+      </NavLink>
     </nav>
   )
 }
