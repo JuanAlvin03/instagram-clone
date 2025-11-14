@@ -1,22 +1,21 @@
 // components/post/PostFooter.tsx
 import React, { useState } from 'react'
-import { Heart, MessageCircle } from 'lucide-react'
+import PostActions from "./PostActions"
 
 interface Props {
   caption?: string | null
   username: string
+  likeCount: number
+  commentsCount: number
 }
 
-const PostFooter: React.FC<Props> = ({ caption, username }) => {
+const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCount }) => {
   const [expanded, setExpanded] = useState(false)
 
   if (!caption) {
     return (
       <footer className="p-3">
-        <div className="flex items-center gap-4">
-          <Heart className="w-5 h-5 cursor-pointer hover:text-red-500 transition-colors" />
-          <MessageCircle className="w-5 h-5 cursor-pointer hover:text-blue-500 transition-colors" />
-        </div>
+        <PostActions likeCount={likeCount} commentsCount={commentsCount} />
       </footer>
     )
   }
@@ -26,10 +25,7 @@ const PostFooter: React.FC<Props> = ({ caption, username }) => {
 
   return (
     <footer className="p-3 space-y-2">
-      <div className="flex items-center gap-4">
-        <Heart className="w-5 h-5 cursor-pointer hover:text-red-500 transition-colors" />
-        <MessageCircle className="w-5 h-5 cursor-pointer hover:text-blue-500 transition-colors" />
-      </div>
+      <PostActions likeCount={likeCount} commentsCount={commentsCount} />
 
       {/* USERNAME + CAPTION */}
       <div className="text-sm text-foreground leading-snug relative">
