@@ -7,35 +7,57 @@ import type { User } from '../../types/models'
 
 interface Props {
   author: User | null
+  createdAt: number
 }
 
-const PostHeader: React.FC<Props> = ({ author }) => {
+const PostHeader: React.FC<Props> = ({ author, createdAt }) => {
   const username = author?.username ?? 'user'
   const [open, setOpen] = useState(false)
 
+  const timeSince = (timestamp: number) => {
+    const seconds = Math.floor((Date.now() - timestamp) / 1000)
+    const mins = Math.floor(seconds / 60)
+    const hours = Math.floor(mins / 60)
+    const days = Math.floor(hours / 24)
+
+    if (days > 0) return `${days}d`
+    if (hours > 0) return `${hours}h`
+    if (mins > 0) return `${mins}m`
+    return `${seconds}s`
+  }
+
   return (
     <header className="flex items-center justify-between p-3 border-b border-border">
-      {/* Left side: avatar + username */}
       <div className="flex items-center gap-3">
-        <Avatar className="h-10 w-10 rounded-full overflow-hidden">
+        <Avatar className="h-10 w-10 rounded-full overflow-hidden border border-border">
           <AvatarImage src={author?.avatarKey ?? '/vite.svg'} className="object-cover w-full h-full" />
           <AvatarFallback>{username[0]?.toUpperCase() || 'U'}</AvatarFallback>
         </Avatar>
-        <span className="font-semibold text-sm">{username}</span>
+
+        {/* Username + Time */}
+        <div className="flex flex-col leading-tight">
+          <span className="font-semibold text-sm">{username}</span>
+          <span className="text-xs text-muted-foreground flex items-center gap-1">
+            <span className="size-1 rounded-full bg-muted-foreground/70" />
+            {timeSince(createdAt)}
+          </span>
+        </div>
       </div>
 
-      {/* Right side: 3 dots button */}
+      {/* 3-dot menu */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="ghost" size="icon" className="rounded-full hover:bg-transparent focus-visible:ring-0 focus-visible:outline-none">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-full hover:bg-transparent focus-visible:ring-0 focus-visible:outline-none"
+          >
             <MoreHorizontal className="w-5 h-5" />
           </Button>
         </DialogTrigger>
 
-        {/* Overlay */}
         <DialogOverlay className="bg-black/50 fixed inset-0 z-40" />
 
-        {/* Content - no title, no X button */}
         <DialogContent
           className="bg-card text-foreground p-0 rounded-2xl overflow-hidden w-72 z-50 border-none shadow-lg"
           showCloseButton={false}
