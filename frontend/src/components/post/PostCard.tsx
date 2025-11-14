@@ -42,13 +42,15 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
 
   return (
     <Card className="overflow-hidden max-w-md w-full rounded-2xl bg-card border border-border shadow-sm">
-      <PostHeader author={author} createdAt={post.createdAt}/>
+      <PostHeader author={author}/>
       <PostImage imageUrl={imageUrl} caption={post.caption} />
       <PostFooter 
         caption={post.caption}
         username={author?.username ?? 'user'}
         likeCount={post.likeCount}
-        commentsCount={post.commentsCount}/>
+        commentsCount={post.commentsCount}
+        createdAt={post.createdAt}
+      />
     </Card>
   )
 }

@@ -7,24 +7,11 @@ import type { User } from '../../types/models'
 
 interface Props {
   author: User | null
-  createdAt: number
 }
 
-const PostHeader: React.FC<Props> = ({ author, createdAt }) => {
+const PostHeader: React.FC<Props> = ({ author }) => {
   const username = author?.username ?? 'user'
   const [open, setOpen] = useState(false)
-
-  const timeSince = (timestamp: number) => {
-    const seconds = Math.floor((Date.now() - timestamp) / 1000)
-    const mins = Math.floor(seconds / 60)
-    const hours = Math.floor(mins / 60)
-    const days = Math.floor(hours / 24)
-
-    if (days > 0) return `${days}d`
-    if (hours > 0) return `${hours}h`
-    if (mins > 0) return `${mins}m`
-    return `${seconds}s`
-  }
 
   return (
     <header className="flex items-center justify-between p-3 border-b border-border">
@@ -34,13 +21,9 @@ const PostHeader: React.FC<Props> = ({ author, createdAt }) => {
           <AvatarFallback>{username[0]?.toUpperCase() || 'U'}</AvatarFallback>
         </Avatar>
 
-        {/* Username + Time */}
+        {/* Username*/}
         <div className="flex flex-col leading-tight">
           <span className="font-semibold text-sm">{username}</span>
-          <span className="text-xs text-muted-foreground flex items-center gap-1">
-            <span className="size-1 rounded-full bg-muted-foreground/70" />
-            {timeSince(createdAt)}
-          </span>
         </div>
       </div>
 
