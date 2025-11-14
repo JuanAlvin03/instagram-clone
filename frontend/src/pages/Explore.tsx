@@ -1,10 +1,11 @@
+// src/pages/Explore.tsx
 import React from 'react'
+import ExploreGrid from '@/components/explore/ExploreGrid'
 
 const Explore: React.FC = () => {
   return (
-    <div>
-      <h2 className="text-2xl font-bold">Explore</h2>
-      <p>Explore grid (implement later).</p>
+    <div className="w-full max-w-screen-xl mx-auto py-6 px-3">
+      <ExploreGrid />
     </div>
   )
 }

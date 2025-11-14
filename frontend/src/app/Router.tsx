@@ -19,7 +19,7 @@ const Router: React.FC = () => {
 
       {/* Main content area */}
       <main className="flex-1 md:ml-60 flex justify-center p-4">
-        <div className="w-full max-w-xl mx-auto">
+        <div className="w-full mx-auto">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
