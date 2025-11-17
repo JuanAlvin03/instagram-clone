@@ -41,6 +41,26 @@ export async function seedIfEmpty() {
     }
 
     await db.posts.add(post)
+
+    // seed comments
+    const comments = [
+      {
+        id: id(),
+        postId: post.id,
+        userId: bobId,
+        text: "Nice photo!",
+        createdAt: Date.now() - 1000,
+      },
+      {
+        id: id(),
+        postId: post.id,
+        userId: aliceId,
+        text: "Thank you! 😊",
+        createdAt: Date.now(),
+      },
+    ]
+    
+    await db.comments.bulkAdd(comments)
   } catch (e) {
     // ignore seed image errors
     console.warn('seed: could not load seed image', e)

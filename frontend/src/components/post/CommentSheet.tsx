@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { db } from "@/db"
 import type { Comment, User } from "@/types/models"
-import { DialogTitle } from "@radix-ui/react-dialog"
 
 interface Props {
   open: boolean
