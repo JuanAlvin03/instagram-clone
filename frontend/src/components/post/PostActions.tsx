@@ -11,22 +11,19 @@ import {
 interface Props {
   likeCount: number
   commentsCount: number
+  onOpenComments?: () => void
 }
 
-const PostActions: React.FC<Props> = ({ likeCount, commentsCount }) => {
+const PostActions: React.FC<Props> = ({ likeCount, commentsCount, onOpenComments }) => {
   const [liked, setLiked] = useState(false)
   const [saved, setSaved] = useState(false)
 
-  const toggleLike = () => setLiked(!liked)
-  const toggleSave = () => setSaved(!saved)
-
   return (
     <div className="flex items-center justify-between">
-      {/* LEFT SIDE ACTIONS */}
       <div className="flex items-center gap-4">
 
         {/* LIKE */}
-        <div className="flex items-center gap-1 cursor-pointer" onClick={toggleLike}>
+        <div className="flex items-center gap-1 cursor-pointer" onClick={() => setLiked(!liked)}>
           {liked ? (
             <HeartIcon className="w-6 h-6 text-red-500 fill-red-500" />
           ) : (
@@ -36,19 +33,20 @@ const PostActions: React.FC<Props> = ({ likeCount, commentsCount }) => {
         </div>
 
         {/* COMMENT */}
-        <div className="flex items-center gap-1 cursor-pointer">
+        <div
+          className="flex items-center gap-1 cursor-pointer"
+          onClick={onOpenComments}
+        >
           <MessageCircle className="w-6 h-6 hover:text-blue-500 transition-colors" />
           <span className="text-sm">{commentsCount}</span>
         </div>
 
-        {/* SHARE */}
         <div className="cursor-pointer">
           <Send className="w-6 h-6 hover:text-foreground/70 transition-colors" />
         </div>
       </div>
 
-      {/* RIGHT SIDE - BOOKMARK */}
-      <div className="cursor-pointer" onClick={toggleSave}>
+      <div className="cursor-pointer" onClick={() => setSaved(!saved)}>
         {saved ? (
           <BookmarkCheck className="w-6 h-6 fill-foreground" />
         ) : (

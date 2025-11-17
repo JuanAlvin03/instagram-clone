@@ -1,6 +1,7 @@
 // components/post/PostFooter.tsx
 import React, { useState } from 'react'
 import PostActions from "./PostActions"
+import CommentSheet from "./CommentSheet"
 
 interface Props {
   caption?: string | null
@@ -8,10 +9,13 @@ interface Props {
   likeCount: number
   commentsCount: number
   createdAt: number
+  postId: string
 }
 
-const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCount, createdAt }) => {
+const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCount, createdAt, postId }) => {
   const [expanded, setExpanded] = useState(false)
+  const [showComments, setShowComments] = useState(false)
+
 
   const formatTimeAgo = (timestamp: number) => {
     const now = Date.now()
@@ -39,10 +43,20 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
   if (!caption) {
     return (
       <footer className="p-3">
-        <PostActions likeCount={likeCount} commentsCount={commentsCount} />
+        <PostActions
+          likeCount={likeCount}
+          commentsCount={commentsCount}
+          onOpenComments={() => setShowComments(true)}
+        />
         <p className="text-xs text-muted-foreground uppercase">
           {formatTimeAgo(createdAt)}
         </p>
+        {/* COMMENT SHEET MODAL */}
+        <CommentSheet
+          open={showComments}
+          onClose={() => setShowComments(false)}
+          postId={postId}
+        />
       </footer>
     )
   }
@@ -52,7 +66,11 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
 
   return (
     <footer className="p-3 space-y-2">
-      <PostActions likeCount={likeCount} commentsCount={commentsCount} />
+      <PostActions
+        likeCount={likeCount}
+        commentsCount={commentsCount}
+        onOpenComments={() => setShowComments(true)}
+      />
 
       {/* USERNAME + CAPTION */}
       <div className="text-sm text-foreground leading-snug relative">
@@ -82,6 +100,13 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
         <p className="text-xs text-muted-foreground">
           {formatTimeAgo(createdAt)}
         </p>
+
+        {/* COMMENT SHEET MODAL */}
+        <CommentSheet
+          open={showComments}
+          onClose={() => setShowComments(false)}
+          postId={postId}
+        />
 
       </div>
     </footer>

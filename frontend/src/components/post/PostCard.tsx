@@ -50,6 +50,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
         likeCount={post.likeCount}
         commentsCount={post.commentsCount}
         createdAt={post.createdAt}
+        postId={post.id}
       />
     </Card>
   )
