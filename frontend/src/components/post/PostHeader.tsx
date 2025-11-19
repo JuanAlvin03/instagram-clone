@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from '@/component
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { User } from '../../types/models'
+import { Link } from "react-router-dom"
 
 interface Props {
   author: User | null
@@ -23,7 +24,12 @@ const PostHeader: React.FC<Props> = ({ author }) => {
 
         {/* Username*/}
         <div className="flex flex-col leading-tight">
-          <span className="font-semibold text-sm">{username}</span>
+          <Link
+            to={`/u/${username}`}
+            className="font-semibold text-sm hover:underline"
+          >
+            {username}
+          </Link>
         </div>
       </div>
 

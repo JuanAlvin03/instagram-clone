@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import PostActions from "./PostActions"
 import CommentSheet from "./CommentSheet"
+import { Link } from "react-router-dom"
 
 interface Props {
   caption?: string | null
@@ -76,12 +77,22 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
       <div className="text-sm text-foreground leading-snug relative">
         {!expanded ? (
           <div className="line-clamp-1">
-            <span className="font-semibold">{username}</span>{' '}
+            <Link
+              to={`/u/${username}`}
+              className="font-semibold hover:underline"
+            >
+              {username}
+            </Link>{' '}
             {caption}
           </div>
         ) : (
           <div>
-            <span className="font-semibold">{username}</span>{' '}
+            <Link
+              to={`/u/${username}`}
+              className="font-semibold hover:underline"
+            >
+              {username}
+            </Link>{' '}
             {caption}
           </div>
         )}
