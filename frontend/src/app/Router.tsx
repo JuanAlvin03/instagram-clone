@@ -1,14 +1,18 @@
 import React, { useState } from "react"
-import { Routes, Route, /*useLocation*/ } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
+
 import Home from "../pages/Home"
 import Explore from "../pages/Explore"
 import UserProfilePage from "../pages/UserProfilePage"
 import PostPage from "../pages/PostPage"
+import LoginPage from "../pages/Login"
 
 import SidebarNav from "../components/nav/SidebarNav"
 import BottomNav from "../components/nav/BottomNav"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import Composer from "../components/Composer"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+
+import RequireAuth from "./RequireAuth"
 
 const Router: React.FC = () => {
   const [showComposer, setShowComposer] = useState(false)
@@ -20,19 +24,22 @@ const Router: React.FC = () => {
       <main className="flex-1 md:ml-60 flex justify-center p-4">
         <div className="w-full mx-auto">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/explore" element={<Explore />} />
+            {/* Public route */}
+            <Route path="/login" element={<LoginPage />} />
 
-            {/* New routes */}
-            <Route path="/p/:postId" element={<PostPage />} />
-            <Route path="/u/:username" element={<UserProfilePage />} />
+            {/* Protected routes */}
+            <Route element={<RequireAuth />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/explore" element={<Explore />} />
+              <Route path="/p/:postId" element={<PostPage />} />
+              <Route path="/u/:username" element={<UserProfilePage />} />
+            </Route>
           </Routes>
         </div>
       </main>
 
       <BottomNav onCreateClick={() => setShowComposer(true)} />
 
-      {/* Composer Modal */}
       <Dialog open={showComposer} onOpenChange={setShowComposer}>
         <DialogContent className="max-w-md w-full sm:rounded-2xl sm:p-6 p-4">
           <DialogHeader>

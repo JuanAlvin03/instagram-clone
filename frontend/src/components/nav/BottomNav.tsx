@@ -7,6 +7,7 @@ interface BottomNavProps {
 }
 
 const BottomNav = ({ onCreateClick }: BottomNavProps) => {
+  const currentUsername = "alice";
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-background border-t border-border flex justify-around items-center py-2 md:hidden">
       <NavLink to="/" className={({ isActive }) => (isActive ? "text-primary" : "text-muted-foreground")}>
@@ -18,7 +19,7 @@ const BottomNav = ({ onCreateClick }: BottomNavProps) => {
       <button onClick={onCreateClick}>
         <PlusSquare className="w-6 h-6 text-muted-foreground hover:text-primary transition" />
       </button>
-      <NavLink to="/profile" className={({ isActive }) => (isActive ? "text-primary" : "text-muted-foreground")}>
+      <NavLink to={`/u/${currentUsername}`} className={({ isActive }) => (isActive ? "text-primary" : "text-muted-foreground")}>
         <User className="w-6 h-6" />
       </NavLink>
     </nav>

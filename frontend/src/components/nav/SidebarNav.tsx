@@ -7,11 +7,13 @@ interface NavbarProps {
 }
 
 const SidebarNav = ({ onCreateClick }: NavbarProps) => {
+  const currentUsername = "alice";
+
   const navItems = [
     { to: "/", icon: <Home className="w-6 h-6" />, label: "Home" },
     { to: "/explore", icon: <Compass className="w-6 h-6" />, label: "Explore" },
     { to: "#", icon: <PlusSquare className="w-6 h-6" />, label: "Create", action: "openComposer" },
-    { to: "/profile", icon: <User className="w-6 h-6" />, label: "Profile" },
+    { to: `/u/${currentUsername}`, icon: <User className="w-6 h-6" />, label: "Profile" },
   ]
 
   return (

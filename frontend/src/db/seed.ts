@@ -15,10 +15,12 @@ export async function seedIfEmpty() {
 
   const aliceId = id()
   const bobId = id()
+  const akuId = id()
 
   const users: User[] = [
     { id: aliceId, username: 'alice', name: 'Alice' },
     { id: bobId, username: 'bob', name: 'Bob' },
+    { id: akuId, username: 'me', name: 'Me' },
   ]
 
   await db.users.bulkAdd(users)
