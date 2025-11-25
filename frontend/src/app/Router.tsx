@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Outlet } from "react-router-dom"
 
 import Home from "../pages/Home"
 import Explore from "../pages/Explore"
@@ -29,10 +29,14 @@ const Router: React.FC = () => {
 
             {/* Protected routes */}
             <Route element={<RequireAuth />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="/p/:postId" element={<PostPage />} />
-              <Route path="/u/:username" element={<UserProfilePage />} />
+              <Route
+                element={<Outlet context={{ openComposer: () => setShowComposer(true) }} />}
+              >
+                <Route path="/" element={<Home />} />
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/p/:postId" element={<PostPage />} />
+                <Route path="/u/:username" element={<UserProfilePage />} />
+              </Route>
             </Route>
           </Routes>
         </div>

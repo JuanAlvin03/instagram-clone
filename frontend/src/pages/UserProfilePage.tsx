@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useOutletContext } from "react-router-dom"
 import { db } from "@/db"
 import type { User } from "@/types/models"
 import ProfileHeader from "@/components/profile/ProfileHeader"
@@ -8,7 +8,7 @@ import ProfileGrid from "@/components/profile/ProfileGrid"
 const UserProfilePage = () => {
   const { username } = useParams()
   const [user, setUser] = useState<User | null>(null)
-
+  const { openComposer } = useOutletContext<{ openComposer: () => void }>()
   useEffect(() => {
     if (!username) return
     ;(async () => {
@@ -24,7 +24,7 @@ const UserProfilePage = () => {
       <ProfileHeader user={user} />
 
       {/* User's posts */}
-      <ProfileGrid userId={user.id} />
+      <ProfileGrid userId={user.id} onCreateClick={openComposer} />
     </div>
   )
 }
