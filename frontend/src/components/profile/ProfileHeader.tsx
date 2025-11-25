@@ -68,6 +68,7 @@ const ProfileHeader = ({ user }: Props) => {
       {/* Info */}
       <div className="flex flex-col justify-center gap-3">
         <h1 className="text-xl font-semibold">@{user.username}</h1>
+        {user.name && <h2 className="text-l font-light">{user.name}</h2>}
 
         {/* Follower stats (placeholder) */}
         <div className="flex gap-6 text-sm">
