@@ -1,6 +1,7 @@
 // src/components/Composer.tsx
 import React, { useState } from 'react'
 import { db } from '../db'
+import { useAuthContext } from '../app/AuthProvider'
 
 function id() {
   return globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2, 9)
@@ -14,6 +15,8 @@ const Composer: React.FC<ComposerProps> = ({ onSuccess }) => {
   const [file, setFile] = useState<File | null>(null)
   const [caption, setCaption] = useState('')
 
+  const { userId: currentUserId } = useAuthContext()
+
   async function submit() {
     if (!file) return
     const blob = await file.slice(0, file.size, file.type)
@@ -21,7 +24,7 @@ const Composer: React.FC<ComposerProps> = ({ onSuccess }) => {
     await db.blobs.put({ key, data: blob })
     await db.posts.add({
       id: id(),
-      authorId: 'anonymous',
+      authorId: currentUserId,
       imageKey: key,
       caption,
       createdAt: Date.now(),

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { db } from "@/db"
 import type { Comment, User } from "@/types/models"
+import { useAuthContext } from "@/app/AuthProvider"
 
 interface Props {
   open: boolean
@@ -13,6 +14,7 @@ interface Props {
 const CommentSheet: React.FC<Props> = ({ open, onClose, postId }) => {
   const [comments, setComments] = useState<Array<Comment & { user: User | null }>>([])
   const [text, setText] = useState("")
+  const { userId: currentUserId } = useAuthContext()
 
   // Load comments
   useEffect(() => {
@@ -41,7 +43,7 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId }) => {
     await db.comments.add({
       id,
       postId,
-      userId: "anonymous",
+      userId: currentUserId,
       text,
       createdAt: Date.now()
     })
