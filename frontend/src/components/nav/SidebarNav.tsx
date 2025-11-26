@@ -1,9 +1,10 @@
 // src/components/nav/SidebarNav.tsx
 import { Home, Compass, User, PlusSquare, LogOut } from "lucide-react"
-import { NavLink, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useAuthContext } from "../../app/AuthProvider"
 import { db } from "../../db"
 import { useEffect, useState } from "react"
+import NavItem from "./NavItem"
 
 interface NavbarProps {
   onCreateClick: () => void
@@ -42,31 +43,15 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
       <div className="text-2xl font-bold mb-8 px-4">MyGram</div>
 
       <nav className="flex flex-col gap-2 flex-1">
-        {navItems.map((item: any) =>
-          item.action === "openComposer" ? (
-            <button
-              key={item.label}
-              onClick={onCreateClick}
-              className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-muted transition text-foreground"
-            >
-              {item.icon}
-              <span>{item.label}</span>
-            </button>
-          ) : (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-muted transition ${
-                  isActive ? "font-semibold text-primary" : "text-foreground"
-                }`
-              }
-            >
-              {item.icon}
-              <span>{item.label}</span>
-            </NavLink>
-          )
-        )}
+        {navItems.map((item: any) => (
+          <NavItem
+            key={item.label}
+            icon={item.icon}
+            label={item.label}
+            to={item.action === "openComposer" ? undefined : item.to}
+            onClick={item.action === "openComposer" ? onCreateClick : undefined}
+          />
+        ))}
       </nav>
 
       {/* LOGOUT BUTTON */}
