@@ -38,7 +38,7 @@ const BottomNav = ({ onCreateClick }: BottomNavProps) => {
       </NavLink>
 
       <button onClick={onCreateClick}>
-        <PlusSquare className="w-6 h-6 text-muted-foreground hover:text-primary transition" />
+        <PlusSquare className="w-6 h-6 botnavbutton transition" />
       </button>
 
       {currentUsername && (
