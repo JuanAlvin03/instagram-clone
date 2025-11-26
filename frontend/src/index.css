@@ -108,6 +108,27 @@ button:hover {
   @apply bg-muted/50;
 }
 
+.button-in-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding-left: 16px;
+  border-width: 0;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 24px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.button-in-nav:hover {
+  @apply bg-muted;
+  color: #535bf2;
+}
+
 /* Focus — thin ring for accessibility, but no blue default outline */
 button:focus-visible {
   @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
