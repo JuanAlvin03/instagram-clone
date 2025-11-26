@@ -12,11 +12,25 @@ interface Props {
   likeCount: number
   commentsCount: number
   onOpenComments?: () => void
+  postId: string
 }
 
-const PostActions: React.FC<Props> = ({ likeCount, commentsCount, onOpenComments }) => {
+const PostActions: React.FC<Props> = ({ likeCount, commentsCount, onOpenComments, postId }) => {
   const [liked, setLiked] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const handleShare = async () => {
+    const url = `${window.location.origin}/p/${postId}`
+
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1500)
+    } catch (err) {
+      console.error("Clipboard error:", err)
+    }
+  }
 
   return (
     <div className="flex items-center justify-between">
@@ -41,9 +55,18 @@ const PostActions: React.FC<Props> = ({ likeCount, commentsCount, onOpenComments
           <span className="text-sm">{commentsCount}</span>
         </div>
 
-        <div className="cursor-pointer">
+        {/* SHARE */}
+        <div className="relative cursor-pointer" onClick={handleShare}>
           <Send className="w-6 h-6 hover:text-foreground/70 transition-colors" />
+
+          {/* COPIED FEEDBACK */}
+          {copied && (
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-foreground text-background text-xs px-2 py-1 rounded-md shadow">
+              Link Copied!
+            </div>
+          )}
         </div>
+
       </div>
 
       <div className="cursor-pointer" onClick={() => setSaved(!saved)}>

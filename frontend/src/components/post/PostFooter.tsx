@@ -71,6 +71,7 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
         likeCount={likeCount}
         commentsCount={commentsCount}
         onOpenComments={() => setShowComments(true)}
+        postId={postId}
       />
 
       {/* USERNAME + CAPTION */}
