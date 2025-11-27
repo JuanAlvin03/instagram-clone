@@ -15,6 +15,7 @@ const ProfileHeader = ({ user }: Props) => {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
   const [bio, setBio] = useState(user.bio ?? "")
   const [editMode, setEditMode] = useState(false)
+  const [postCount, setPostCount] = useState<number>(0)
 
   useEffect(() => {
     if (!user.avatarKey) return
@@ -26,6 +27,23 @@ const ProfileHeader = ({ user }: Props) => {
       setAvatarUrl(url)
     })()
   }, [user.avatarKey])
+
+  // Load how many posts this user has authored
+  useEffect(() => {
+    let mounted = true
+    ;(async () => {
+      try {
+        const c = await db.posts.where('authorId').equals(user.id).count()
+        if (!mounted) return
+        setPostCount(c)
+      } catch (e) {
+        console.warn('could not count posts for user', e)
+      }
+    })()
+    return () => {
+      mounted = false
+    }
+  }, [user.id])
 
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) =>
   {
@@ -72,7 +90,7 @@ const ProfileHeader = ({ user }: Props) => {
 
         {/* Follower stats (placeholder) */}
         <div className="flex gap-6 text-sm">
-          <span><strong>1</strong> posts</span>
+          <span><strong>{postCount}</strong> {postCount === 1 ? 'post' : 'posts'}</span>
           <span><strong>12</strong> followers</span>
           <span><strong>8</strong> following</span>
         </div>
