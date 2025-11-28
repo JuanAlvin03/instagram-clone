@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { db } from "@/db"
-import type { User, Follow } from "@/types/models"
+import type { User } from "@/types/models"
 import { Button } from "@/components/ui/button"
 import { useAuthContext } from "@/app/AuthProvider"
 

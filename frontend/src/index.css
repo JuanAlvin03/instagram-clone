@@ -107,6 +107,10 @@ button {
 button:hover {
   @apply bg-muted/50;
 }
+.special-more-button {
+  padding: 0;
+  border: none;
+}
 
 .button-in-nav {
   display: flex;

@@ -102,7 +102,7 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
         {/* "more" button appears only when clamped */}
         {!expanded && shouldTruncate && (
           <button
-            className="text-muted-foreground ml-1 hover:underline absolute right-0 bottom-0 bg-card pl-1"
+            className="text-muted-foreground hover:underline right-0 bottom-0 bg-card border-none special-more-button"
             onClick={() => setExpanded(true)}
           >
             more
