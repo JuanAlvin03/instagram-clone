@@ -1,6 +1,12 @@
 // Minimal shared types for the demo app
 export type ID = string
 
+export type Follow = {
+  id: ID
+  followerId: ID
+  followingId: ID
+}
+
 export type User = {
   id: ID
   username: string

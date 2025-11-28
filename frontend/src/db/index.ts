@@ -1,6 +1,6 @@
 import Dexie from 'dexie'
 import type { Table } from 'dexie'
-import type { User, Post, Like, Comment } from '../types/models'
+import type { User, Post, Like, Comment, Follow } from '../types/models'
 
 class AppDB extends Dexie {
   users!: Table<User, string>
@@ -8,6 +8,7 @@ class AppDB extends Dexie {
   likes!: Table<Like, string>
   comments!: Table<Comment, string>
   blobs!: Table<{ key: string; data: Blob }, string>
+  follows!: Table<Follow, string>
 
   constructor() {
     super('instagram_clone_db')
@@ -17,6 +18,7 @@ class AppDB extends Dexie {
       likes: 'id, postId, userId',
       comments: 'id, postId, userId',
       blobs: 'key',
+      follows: 'id, followerId, followingId, [followerId+followingId]',
     })
   }
 }
