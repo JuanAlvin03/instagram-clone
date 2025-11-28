@@ -3,6 +3,7 @@ import type { User } from "@/types/models"
 import { db } from "@/db"
 import { useAuthContext } from "@/app/AuthProvider"
 import { Button } from "@/components/ui/button"
+import { Link } from "react-router-dom"
 
 interface Props {
   user: User
@@ -195,8 +196,12 @@ const ProfileHeader = ({ user }: Props) => {
         {/* Follower stats */}
         <div className="flex gap-6 text-sm">
           <span><strong>{postCount}</strong> {postCount === 1 ? "post" : "posts"}</span>
-          <span><strong>{followerCount}</strong> followers</span>
-          <span><strong>{followingCount}</strong> following</span>
+          <Link to={`/u/${user.username}/followers`} className="font-semibold hover:underline block">
+            <span><strong>{followerCount}</strong> followers</span>
+          </Link>
+          <Link to={`/u/${user.username}/following`} className="font-semibold hover:underline block">
+            <span><strong>{followingCount}</strong> following</span>
+          </Link>
         </div>
 
         {/* Bio */}
