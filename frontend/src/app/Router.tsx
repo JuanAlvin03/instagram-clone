@@ -6,6 +6,7 @@ import Explore from "../pages/Explore"
 import UserProfilePage from "../pages/UserProfilePage"
 import PostPage from "../pages/PostPage"
 import LoginPage from "../pages/Login"
+import FollowPage from "../pages/FollowPage"
 
 import SidebarNav from "../components/nav/SidebarNav"
 import BottomNav from "../components/nav/BottomNav"
@@ -36,6 +37,8 @@ const Router: React.FC = () => {
                 <Route path="/explore" element={<Explore />} />
                 <Route path="/p/:postId" element={<PostPage />} />
                 <Route path="/u/:username" element={<UserProfilePage />} />
+                <Route path="/u/:username/followers" element={<FollowPage tab="followers" />} />
+                <Route path="/u/:username/following" element={<FollowPage tab="following" />} />
               </Route>
             </Route>
           </Routes>
