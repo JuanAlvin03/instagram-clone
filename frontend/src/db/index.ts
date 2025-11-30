@@ -15,7 +15,7 @@ class AppDB extends Dexie {
     this.version(1).stores({
       users: 'id, username',
       posts: 'id, authorId, createdAt',
-      likes: 'id, postId, userId',
+      likes: 'id, postId, userId, [postId+userId]',
       comments: 'id, postId, userId',
       blobs: 'key',
       follows: 'id, followerId, followingId, [followerId+followingId]',
