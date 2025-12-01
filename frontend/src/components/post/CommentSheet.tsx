@@ -47,6 +47,8 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
       createdAt: Date.now()
     })
 
+    await db.posts.update(postId, { commentsCount: comments.length + 1 });
+
     setText("")
 
     // Refresh list + get new total
