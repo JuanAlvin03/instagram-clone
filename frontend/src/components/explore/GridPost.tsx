@@ -55,7 +55,7 @@ const GridPost: React.FC<Props> = ({ post, objectUrlsRef }) => {
             block
             transition-all
             duration-300
-            group-hover:brightness-75
+            group-hover:brightness-50
           "
         />
       )}
