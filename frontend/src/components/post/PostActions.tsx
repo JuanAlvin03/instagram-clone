@@ -1,19 +1,21 @@
 import React from "react";
 import { Heart, HeartIcon, MessageCircle, Send, Bookmark, BookmarkCheck } from "lucide-react";
 import { useLike } from "@/hooks/useLike";
-import { useAuthContext } from "@/app/AuthProvider"
+import { useCommentsCount } from "@/hooks/useCommentsCount";
+import { useAuthContext } from "@/app/AuthProvider";
 
 interface Props {
   likeCount: number;
-  commentsCount: number;
+  commentsCount: number; // no longer needed but keep for compatibility
   onOpenComments?: () => void;
   postId: string;
 }
 
-const PostActions: React.FC<Props> = ({ likeCount, commentsCount, onOpenComments, postId }) => {
-  const { userId: userId } = useAuthContext()
+const PostActions: React.FC<Props> = ({ onOpenComments, postId }) => {
+  const { userId } = useAuthContext();
 
   const { liked, likeCount: liveLikeCount, toggleLike } = useLike(postId, userId);
+  const liveCommentsCount = useCommentsCount(postId);
 
   const [saved, setSaved] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
@@ -46,13 +48,12 @@ const PostActions: React.FC<Props> = ({ likeCount, commentsCount, onOpenComments
         {/* COMMENT */}
         <div className="flex items-center gap-1 cursor-pointer" onClick={onOpenComments}>
           <MessageCircle className="w-6 h-6 hover:text-blue-500 transition-colors" />
-          <span className="text-sm">{commentsCount}</span>
+          <span className="text-sm">{liveCommentsCount}</span>
         </div>
 
         {/* SHARE */}
         <div className="relative cursor-pointer" onClick={handleShare}>
           <Send className="w-6 h-6 hover:text-foreground/70 transition-colors" />
-
           {copied && (
             <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-foreground text-background text-xs px-2 py-1 rounded-md shadow">
               Link Copied!

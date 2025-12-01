@@ -9,48 +9,16 @@ interface Props {
   open: boolean
   onClose: () => void
   postId: string
+  onCommentAdded?: (newCount: number) => void   // ⭐ NEW
 }
 
-const CommentSheet: React.FC<Props> = ({ open, onClose, postId }) => {
+const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }) => {
   const [comments, setComments] = useState<Array<Comment & { user: User | null }>>([])
   const [text, setText] = useState("")
   const { userId: currentUserId } = useAuthContext()
 
   // Load comments
-  useEffect(() => {
-    if (!open) return
-    let mounted = true
-
-    ;(async () => {
-      const list = await db.comments.where({ postId }).sortBy("createdAt")
-      const withUsers = await Promise.all(
-        list.map(async c => ({
-          ...c,
-          user: await db.users.get(c.userId)
-        }))
-      )
-      if (mounted) setComments(withUsers)
-    })()
-
-    return () => { mounted = false }
-  }, [open, postId])
-
-  // Add comment
-  const submit = async () => {
-    if (!text.trim()) return
-    const id = crypto.randomUUID()
-
-    await db.comments.add({
-      id,
-      postId,
-      userId: currentUserId,
-      text,
-      createdAt: Date.now()
-    })
-
-    setText("")
-
-    // refresh list
+  const loadComments = async () => {
     const list = await db.comments.where({ postId }).sortBy("createdAt")
     const withUsers = await Promise.all(
       list.map(async c => ({
@@ -59,6 +27,33 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId }) => {
       }))
     )
     setComments(withUsers)
+    return list.length
+  }
+
+  useEffect(() => {
+    if (!open) return
+    loadComments()
+  }, [open, postId])
+
+  // Add comment
+  const submit = async () => {
+    if (!text.trim()) return
+
+    await db.comments.add({
+      id: crypto.randomUUID(),
+      postId,
+      userId: currentUserId,
+      text,
+      createdAt: Date.now()
+    })
+
+    setText("")
+
+    // Refresh list + get new total
+    const newCount = await loadComments()
+
+    // Inform parent
+    if (onCommentAdded) onCommentAdded(newCount)
   }
 
   return (
@@ -76,7 +71,6 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId }) => {
           w-full 
           bg-background
           animate-slide-up
-
           !top-auto 
           !left-0 
           !translate-x-0 
@@ -88,14 +82,12 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId }) => {
           <div className="w-10 h-1.5 bg-muted rounded-full"></div>
         </div>
 
-        {/* TITLE */}
         <div className="flex justify-center">
           <h2 className="text-lg font-semibold">Comments</h2>
         </div>
 
-        {/* COMMENTS LIST */}
+        {/* COMMENTS */}
         <div className="px-4 pb-20 max-h-[60vh] overflow-y-auto space-y-3">
-
           {comments.length === 0 ? (
             <div className="text-center text-muted-foreground py-10">
               <p className="text-sm">No comments yet.</p>
@@ -109,7 +101,6 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId }) => {
               </div>
             ))
           )}
-
         </div>
 
         {/* INPUT BAR */}
