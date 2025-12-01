@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Dialog, DialogContent, DialogOverlay, DialogTrigger } from '@/components/ui/dialog'
 import { MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { User } from '../../types/models'
 import { Link } from "react-router-dom"
+import { db } from '@/db'
 
 interface Props {
   author: User | null
@@ -13,12 +14,29 @@ interface Props {
 const PostHeader: React.FC<Props> = ({ author }) => {
   const username = author?.username ?? 'user'
   const [open, setOpen] = useState(false)
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
+
+  useEffect(() => {
+    let mounted = true
+
+    ;(async () => {
+      if (!author?.avatarKey) return
+      const blobRec = await db.blobs.get(author.avatarKey)
+      if (!blobRec) return
+      const url = URL.createObjectURL(blobRec.data)
+      if (!mounted) return
+
+      setAvatarUrl(url)
+    })()
+
+    return () => { mounted = false }
+  }, [author?.avatarKey])
 
   return (
     <header className="flex items-center justify-between p-3 border-b border-border">
       <div className="flex items-center gap-3">
         <Avatar className="h-10 w-10 rounded-full overflow-hidden border border-border">
-          <AvatarImage src={author?.avatarKey ?? '/vite.svg'} className="object-cover w-full h-full" />
+          <AvatarImage src={avatarUrl ?? '/vite.svg'} className="object-cover w-full h-full" />
           <AvatarFallback>{username[0]?.toUpperCase() || 'U'}</AvatarFallback>
         </Avatar>
 
