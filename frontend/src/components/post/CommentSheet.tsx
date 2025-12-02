@@ -4,6 +4,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { db } from "@/db"
 import type { Comment, User } from "@/types/models"
 import { useAuthContext } from "@/app/AuthProvider"
+import { Link } from "react-router-dom"
 
 interface Props {
   open: boolean
@@ -98,7 +99,12 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
           ) : (
             comments.map(c => (
               <div key={c.id} className="text-sm">
-                <span className="font-semibold">{c.user?.username ?? "user"}</span>{" "}
+                <Link
+                  to={`/u/${c.user?.username ?? "user"}`}
+                  className="font-semibold text-sm hover:underline"
+                >
+                  {c.user?.username ?? "user"}
+                </Link>{" "}
                 {c.text}
               </div>
             ))
