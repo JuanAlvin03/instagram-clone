@@ -16,11 +16,13 @@ export async function seedIfEmpty() {
   const aliceId = id()
   const bobId = id()
   const akuId = id()
+  const charlesId = id()
 
   const users: User[] = [
     { id: aliceId, username: 'alice', name: 'Alice' },
     { id: bobId, username: 'bob', name: 'Bob' },
     { id: akuId, username: 'me', name: 'Me' },
+    { id: charlesId, username: 'charles', name: 'Charles' },
   ]
 
   await db.users.bulkAdd(users)
@@ -32,6 +34,16 @@ export async function seedIfEmpty() {
     const imgKey = id()
     await db.blobs.put({ key: imgKey, data: blob })
 
+    const res1 = await fetch('img1.png')
+    const blob1 = await res1.blob()
+    const imgKey1 = id()
+    await db.blobs.put({ key: imgKey1, data: blob1 })
+
+    const res2 = await fetch('img2.png')
+    const blob2 = await res2.blob()
+    const imgKey2 = id()
+    await db.blobs.put({ key: imgKey2, data: blob2 })
+
     const post: Post = {
       id: id(),
       authorId: aliceId,
@@ -39,10 +51,32 @@ export async function seedIfEmpty() {
       caption: 'Hello from the seeded Alice',
       createdAt: Date.now(),
       likeCount: 0,
-      commentsCount: 0,
+      commentsCount: 2,
     }
 
+    const posts: Post[] = [
+      {
+        id: id(),
+        authorId: bobId,
+        imageKey: imgKey1,
+        caption: 'Bob\'s first post!',
+        createdAt: Date.now() - 100000,
+        likeCount: 0,
+        commentsCount: 0,
+      },
+      {
+        id: id(),
+        authorId: charlesId,
+        imageKey: imgKey2,
+        caption: 'Charles\'s first post!',
+        createdAt: Date.now() - 10000000,
+        likeCount: 0,
+        commentsCount: 0,
+      }
+    ]
+
     await db.posts.add(post)
+    await db.posts.bulkAdd(posts)
 
     // seed comments
     const comments: Comment[] = [
@@ -60,6 +94,13 @@ export async function seedIfEmpty() {
         text: "Thank you! 😊",
         createdAt: Date.now(),
       },
+      {
+        id: id(),
+        postId: posts[0].id,
+        userId: akuId,
+        text: "Welcome to the platform, Bob!",
+        createdAt: Date.now(),
+      }
     ]
     
     await db.comments.bulkAdd(comments)
