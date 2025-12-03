@@ -1,5 +1,5 @@
 import { db } from './index'
-import type { User, Post } from '../types/models'
+import type { User, Post, Comment } from '../types/models'
 
 function id() {
   // use crypto if available
@@ -45,7 +45,7 @@ export async function seedIfEmpty() {
     await db.posts.add(post)
 
     // seed comments
-    const comments = [
+    const comments: Comment[] = [
       {
         id: id(),
         postId: post.id,
