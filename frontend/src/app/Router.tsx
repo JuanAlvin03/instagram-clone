@@ -14,6 +14,7 @@ import Composer from "../components/Composer"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 import RequireAuth from "./RequireAuth"
+import NotFound from "@/pages/NotFound"
 
 const Router: React.FC = () => {
   const [showComposer, setShowComposer] = useState(false)
@@ -41,6 +42,9 @@ const Router: React.FC = () => {
                 <Route path="/u/:username/following" element={<FollowPage tab="following" />} />
               </Route>
             </Route>
+
+            {/* 404 fallback */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </main>
