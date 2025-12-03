@@ -64,7 +64,7 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
   }
 
   const fullText = `${username} ${caption}`
-  const shouldTruncate = fullText.length > 100
+  const shouldTruncate = fullText.length > 50
 
   return (
     <footer className="p-3 space-y-2">
@@ -78,35 +78,38 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
       {/* USERNAME + CAPTION */}
       <div className="text-sm text-foreground leading-snug relative">
         {!expanded ? (
-          <div className="line-clamp-1">
+          <div className="inline">
             <Link
               to={`/u/${username}`}
               className="font-semibold hover:underline"
             >
               {username}
-            </Link>{' '}
-            {caption}
+            </Link>{" "}
+            <span
+              className="truncate inline-block max-w-full align-middle overflow-hidden text-ellipsis whitespace-nowrap"
+            >
+              {caption}
+            </span>
+
+            {shouldTruncate && (
+              <span
+                className="text-muted-foreground hover:underline cursor-pointer ml-1"
+                onClick={() => setExpanded(true)}
+              >
+                more
+              </span>
+            )}
           </div>
         ) : (
-          <div>
+          <div className="inline">
             <Link
               to={`/u/${username}`}
               className="font-semibold hover:underline"
             >
               {username}
-            </Link>{' '}
+            </Link>{" "}
             {caption}
           </div>
-        )}
-
-        {/* "more" button appears only when clamped */}
-        {!expanded && shouldTruncate && (
-          <button
-            className="text-muted-foreground hover:underline right-0 bottom-0 bg-card border-none special-more-button"
-            onClick={() => setExpanded(true)}
-          >
-            more
-          </button>
         )}
 
         {/* TIME AGO */}

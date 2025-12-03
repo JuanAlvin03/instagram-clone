@@ -141,6 +141,16 @@ button:hover {
 button:focus-visible {
   @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
 }
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
