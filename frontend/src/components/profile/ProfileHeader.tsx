@@ -172,12 +172,20 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
         {/* Follower stats */}
         <div className="flex gap-6 text-sm">
           <span><strong>{postCount}</strong> {postCount === 1 ? "post" : "posts"}</span>
-          <Link to={`/u/${user.username}/followers`} className="font-semibold hover:underline block">
-            <span><strong>{followerCount}</strong> followers</span>
+
+          <Link to={`/u/${user.username}/followers`}>
+            <strong>{followerCount}</strong> followers
           </Link>
-          <Link to={`/u/${user.username}/following`} className="font-semibold hover:underline block">
-            <span><strong>{followingCount}</strong> following</span>
+
+          <Link to={`/u/${user.username}/following`}>
+            <strong>{followingCount}</strong> following
           </Link>
+
+          {isOwner && (
+            <Link to={`/u/${user.username}/saved`}>
+              <strong>Saved</strong>
+            </Link>
+          )}
         </div>
 
         {/* Bio */}

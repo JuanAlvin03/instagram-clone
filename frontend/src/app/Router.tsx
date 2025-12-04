@@ -15,6 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 
 import RequireAuth from "./RequireAuth"
 import NotFound from "@/pages/NotFound"
+import SavedPostsPage from "@/pages/SavedPostsPage"
 
 const Router: React.FC = () => {
   const [showComposer, setShowComposer] = useState(false)
@@ -40,6 +41,7 @@ const Router: React.FC = () => {
                 <Route path="/u/:username" element={<UserProfilePage />} />
                 <Route path="/u/:username/followers" element={<FollowPage tab="followers" />} />
                 <Route path="/u/:username/following" element={<FollowPage tab="following" />} />
+                <Route path="/u/:username/saved" element={<SavedPostsPage />} />
               </Route>
             </Route>
 
