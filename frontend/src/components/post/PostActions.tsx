@@ -3,10 +3,11 @@ import { Heart, HeartIcon, MessageCircle, Send, Bookmark, BookmarkCheck } from "
 import { useLike } from "@/hooks/useLike";
 import { useCommentsCount } from "@/hooks/useCommentsCount";
 import { useAuthContext } from "@/app/AuthProvider";
+import { useSavePost } from "@/hooks/useSavePost";
 
 interface Props {
   likeCount: number;
-  commentsCount: number; // no longer needed but keep for compatibility
+  commentsCount: number;
   onOpenComments?: () => void;
   postId: string;
 }
@@ -17,7 +18,9 @@ const PostActions: React.FC<Props> = ({ onOpenComments, postId }) => {
   const { liked, likeCount: liveLikeCount, toggleLike } = useLike(postId, userId);
   const liveCommentsCount = useCommentsCount(postId);
 
-  const [saved, setSaved] = React.useState(false);
+  // New saved-post hook
+  const { saved, toggleSave } = useSavePost(postId, userId);
+
   const [copied, setCopied] = React.useState(false);
 
   const handleShare = async () => {
@@ -63,7 +66,8 @@ const PostActions: React.FC<Props> = ({ onOpenComments, postId }) => {
 
       </div>
 
-      <div className="cursor-pointer" onClick={() => (!saved)}>
+      {/* SAVE BUTTON */}
+      <div className="cursor-pointer" onClick={toggleSave}>
         {saved ? (
           <BookmarkCheck className="w-6 h-6 fill-foreground" />
         ) : (
