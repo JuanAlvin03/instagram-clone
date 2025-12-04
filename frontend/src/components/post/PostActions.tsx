@@ -63,7 +63,7 @@ const PostActions: React.FC<Props> = ({ onOpenComments, postId }) => {
 
       </div>
 
-      <div className="cursor-pointer" onClick={() => setSaved(!saved)}>
+      <div className="cursor-pointer" onClick={() => (!saved)}>
         {saved ? (
           <BookmarkCheck className="w-6 h-6 fill-foreground" />
         ) : (

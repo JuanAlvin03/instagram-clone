@@ -39,3 +39,10 @@ export type Comment = {
   text: string
   createdAt: number
 }
+
+export type SavedPost = {
+  id: ID
+  userId: ID
+  postId: ID
+  createdAt: number
+}
