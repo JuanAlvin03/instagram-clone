@@ -4,19 +4,21 @@ import { db } from "@/db"
 import { useAuthContext } from "@/app/AuthProvider"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import EditProfileModal from "./EditProfileModal"
 
 interface Props {
   user: User
+  reloadUser: () => void
 }
 
-const ProfileHeader = ({ user }: Props) => {
+const ProfileHeader = ({ user, reloadUser }: Props) => {
   const { userId: currentUserId } = useAuthContext()
   const isOwner = currentUserId === user.id
 
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
   const [bio, setBio] = useState(user.bio ?? "")
-  const [editMode, setEditMode] = useState(false)
   const [postCount, setPostCount] = useState<number>(0)
+  const [showEditModal, setShowEditModal] = useState(false)
 
   // Follow state
   const [followerCount, setFollowerCount] = useState<number>(0)
@@ -24,6 +26,9 @@ const ProfileHeader = ({ user }: Props) => {
   const [isFollowing, setIsFollowing] = useState<boolean>(false)
   const [followRecordId, setFollowRecordId] = useState<string | null>(null)
 
+  useEffect(() => {
+    setBio(user.bio ?? "")
+  }, [user.bio])
   /* ======================================================
      LOAD AVATAR
   ====================================================== */
@@ -128,28 +133,6 @@ const ProfileHeader = ({ user }: Props) => {
   }
 
   /* ======================================================
-     AVATAR CHANGE
-  ====================================================== */
-  const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files?.[0]) return
-    const file = e.target.files[0]
-
-    const key = crypto.randomUUID()
-    const blob = new Blob([await file.arrayBuffer()], { type: file.type })
-
-    await db.blobs.put({ key, data: blob })
-    await db.users.update(user.id, { avatarKey: key })
-
-    const url = URL.createObjectURL(blob)
-    setAvatarUrl(url)
-  }
-
-  const saveBio = async () => {
-    await db.users.update(user.id, { bio })
-    setEditMode(false)
-  }
-
-  /* ======================================================
      RENDER
   ====================================================== */
   return (
@@ -162,13 +145,6 @@ const ProfileHeader = ({ user }: Props) => {
           <div className="w-full h-full flex items-center justify-center text-muted-foreground text-3xl">
             👤
           </div>
-        )}
-
-        {isOwner && (
-          <label className="absolute bottom-0 right-0 bg-primary text-white text-xs px-2 py-1 rounded cursor-pointer">
-            Edit
-            <input type="file" accept="image/*" onChange={onAvatarChange} className="hidden" />
-          </label>
         )}
       </div>
 
@@ -205,26 +181,21 @@ const ProfileHeader = ({ user }: Props) => {
         </div>
 
         {/* Bio */}
-        {!editMode ? (
-          <p className="text-sm">{bio || (isOwner ? "Add a bio…" : "")}</p>
-        ) : (
-          <textarea
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            className="border p-2 text-sm rounded"
-          />
+        <p className="text-sm">{bio || (isOwner ? "Add a bio…" : "")}</p>
+
+        {/* Edit Profile Button */}
+        {isOwner && (
+          <Button size="sm" onClick={() => setShowEditModal(true)}>
+            Edit Profile
+          </Button>
         )}
 
-        {/* Edit Bio Button */}
-        {isOwner && (
-          <div>
-            {!editMode ? (
-              <Button size="sm" onClick={() => setEditMode(true)}>Edit Profile</Button>
-            ) : (
-              <Button size="sm" onClick={saveBio}>Save</Button>
-            )}
-          </div>
-        )}
+        <EditProfileModal
+          open={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          user={user}
+          onUpdated={reloadUser}
+        />
       </div>
     </div>
   )

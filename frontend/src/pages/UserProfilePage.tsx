@@ -19,9 +19,14 @@ const UserProfilePage = () => {
 
   if (!user) return <div className="p-4">User not found</div>
 
+  const reloadUser = async () => {
+    const fresh = await db.users.where("username").equals(username!).first()
+    setUser(fresh!)
+  }
+
   return (
     <div className="max-w-screen-md mx-auto p-4">
-      <ProfileHeader user={user} />
+      <ProfileHeader user={user} reloadUser={reloadUser} />
 
       {/* User's posts */}
       <ProfileGrid userId={user.id} onCreateClick={openComposer} />
