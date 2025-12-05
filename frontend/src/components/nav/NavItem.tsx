@@ -8,7 +8,7 @@ interface Props {
 }
 
 const baseClass =
-  "flex items-center gap-3 px-4 py-2 rounded-lg transition text-foreground hover:bg-muted"
+  "flex h-12 items-center gap-3 px-4 rounded-lg transition text-foreground hover:bg-muted"
 
 export default function NavItem({ icon, label, to, onClick }: Props) {
   // click-only (for Create button)

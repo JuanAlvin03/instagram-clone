@@ -1,10 +1,11 @@
 // src/components/nav/SidebarNav.tsx
-import { Home, Compass, User, PlusSquare, LogOut } from "lucide-react"
+import { Home, Compass, User, PlusSquare, Menu } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useAuthContext } from "../../app/AuthProvider"
 import { db } from "../../db"
 import { useEffect, useState } from "react"
 import NavItem from "./NavItem"
+import MoreMenu from "./MoreMenu"
 
 interface NavbarProps {
   onCreateClick: () => void
@@ -13,6 +14,7 @@ interface NavbarProps {
 const SidebarNav = ({ onCreateClick }: NavbarProps) => {
   const { userId, logout } = useAuthContext()
   const [user, setUser] = useState<any>(null)
+  const [openMore, setOpenMore] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -21,11 +23,6 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
   }, [userId])
 
   const currentUsername = user?.username ?? null
-
-  const handleLogout = () => {
-    logout()
-    navigate("/login", { replace: true })
-  }
 
   const navItems = [
     { to: "/", icon: <Home className="w-6 h-6" />, label: "Home" },
@@ -54,14 +51,29 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
         ))}
       </nav>
 
-      {/* LOGOUT BUTTON */}
-      <button
-        onClick={handleLogout}
-        className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-muted transition text-red-500"
-      >
-        <LogOut className="w-6 h-6" />
-        <span>Log out</span>
-      </button>
+      {/* --- MORE DROPDOWN TRIGGER --- */}
+      <div className="relative px-4">
+        <button
+          onClick={() => setOpenMore(prev => !prev)}
+          className="flex items-center justify-between gap-3 px-4 py-2 w-full rounded-lg hover:bg-muted transition"
+        >
+          <div className="flex items-center gap-3">
+            <Menu className="w-6 h-6" />
+            <span>More</span>
+          </div>
+        </button>
+
+        {openMore && (
+          <MoreMenu
+            onClose={() => setOpenMore(false)}
+            onLogout={() => {
+              logout()
+              navigate("/login", { replace: true })
+            }}
+            currentUsername={currentUsername}
+          />
+        )}
+      </div>
     </aside>
   )
 }
