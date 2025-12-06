@@ -136,75 +136,82 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
      RENDER
   ====================================================== */
   return (
-    <div className="flex gap-8 py-6 px-2">
-      {/* Avatar */}
-      <div className="w-24 h-24 rounded-full overflow-hidden bg-muted relative">
-        {avatarUrl ? (
-          <img src={avatarUrl} className="w-full h-full object-cover" />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-muted-foreground text-3xl">
-            👤
+    <div className="py-6 px-2 flex flex-col gap-6">
+
+      {/* TOP SECTION: Avatar + username + name + stats */}
+      <div className="flex gap-10">
+        {/* Avatar */}
+        <div className="flex items-start">
+          <div className="w-28 h-28 rounded-full overflow-hidden bg-muted">
+            {avatarUrl ? (
+              <img src={avatarUrl} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-muted-foreground text-4xl">
+                👤
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Username + name + stats */}
+        <div className="flex flex-col gap-3">
+          {/* Username */}
+          <h1 className="text-xl font-semibold">@{user.username}</h1>
+
+          {/* Name */}
+          {user.name && (
+            <div className="text-base font-light">
+              {user.name}
+            </div>
+          )}
+
+          {/* Stats */}
+          <div className="flex gap-6 text-sm">
+            <span>
+              <strong>{postCount}</strong> {postCount === 1 ? "post" : "posts"}
+            </span>
+
+            <Link to={`/u/${user.username}/followers`}>
+              <strong>{followerCount}</strong> followers
+            </Link>
+
+            <Link to={`/u/${user.username}/following`}>
+              <strong>{followingCount}</strong> following
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* BOTTOM SECTION: Bio + buttons */}
+      <div className="flex flex-col gap-4 max-w-lg">
+        {/* Bio */}
+        <p className="text-sm">
+          {bio || (isOwner ? "Add a bio…" : "")}
+        </p>
+
+        {/* Buttons row */}
+        {isOwner && (
+          <div className="flex gap-3">
+            <Button size="sm" onClick={() => setShowEditModal(true)}>
+              Edit Profile
+            </Button>
+
+            <Link
+              to={`/u/${user.username}/saved`}
+              className="px-4 py-2 bg-muted rounded-md text-sm font-medium hover:bg-muted/80 transition"
+            >
+              Saved
+            </Link>
           </div>
         )}
       </div>
 
-      {/* Info */}
-      <div className="flex flex-col justify-center gap-3">
-        <div className="flex items-center gap-4">
-          <h1 className="text-xl font-semibold">@{user.username}</h1>
-
-          {/* Follow Button (hidden for owner) */}
-          {!isOwner && currentUserId && (
-            isFollowing ? (
-              <Button size="sm" variant="outline" onClick={handleUnfollow}>
-                Following
-              </Button>
-            ) : (
-              <Button size="sm" onClick={handleFollow}>
-                Follow
-              </Button>
-            )
-          )}
-        </div>
-
-        {user.name && <h2 className="text-l font-light">{user.name}</h2>}
-
-        {/* Follower stats */}
-        <div className="flex gap-6 text-sm">
-          <span><strong>{postCount}</strong> {postCount === 1 ? "post" : "posts"}</span>
-
-          <Link to={`/u/${user.username}/followers`}>
-            <strong>{followerCount}</strong> followers
-          </Link>
-
-          <Link to={`/u/${user.username}/following`}>
-            <strong>{followingCount}</strong> following
-          </Link>
-
-          {isOwner && (
-            <Link to={`/u/${user.username}/saved`}>
-              <strong>Saved</strong>
-            </Link>
-          )}
-        </div>
-
-        {/* Bio */}
-        <p className="text-sm">{bio || (isOwner ? "Add a bio…" : "")}</p>
-
-        {/* Edit Profile Button */}
-        {isOwner && (
-          <Button size="sm" onClick={() => setShowEditModal(true)}>
-            Edit Profile
-          </Button>
-        )}
-
-        <EditProfileModal
-          open={showEditModal}
-          onClose={() => setShowEditModal(false)}
-          user={user}
-          onUpdated={reloadUser}
-        />
-      </div>
+      <EditProfileModal
+        open={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        user={user}
+        onUpdated={reloadUser}
+      />
     </div>
   )
 }
