@@ -6,6 +6,7 @@ import Explore from "../pages/Explore"
 import UserProfilePage from "../pages/UserProfilePage"
 import PostPage from "../pages/PostPage"
 import LoginPage from "../pages/Login"
+import RegisterPage from "@/pages/Register"
 import FollowPage from "../pages/FollowPage"
 
 import SidebarNav from "../components/nav/SidebarNav"
@@ -29,6 +30,7 @@ const Router: React.FC = () => {
           <Routes>
             {/* Public route */}
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
 
             {/* Protected routes */}
             <Route element={<RequireAuth />}>

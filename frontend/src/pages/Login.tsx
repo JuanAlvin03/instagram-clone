@@ -72,9 +72,9 @@ export default function LoginPage() {
           {/* SIGN UP LINK (dummy for now) */}
           <p className="text-center text-sm text-muted-foreground">
             Don’t have an account?{" "}
-            <span className="text-primary cursor-pointer">
-              Sign Up
-            </span>
+            <Link to="/register" className="text-primary cursor-pointer">
+              Register
+            </Link>
           </p>
         </CardContent>
       </Card>
