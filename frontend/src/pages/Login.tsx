@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { useNavigate, useLocation, Link } from "react-router-dom"
 import { useAuthContext } from "../app/AuthProvider"
 import { db } from "../db"
 import { Card, CardContent } from "@/components/ui/card"
@@ -8,23 +8,28 @@ import { Input } from "@/components/ui/input"
 
 export default function LoginPage() {
   const { login } = useAuthContext()
-  const [username, setUsername] = useState("")
+  const [users, setUsers] = useState<any[]>([])
+  const [selectedUserId, setSelectedUserId] = useState("")
   const [error, setError] = useState("")
   const navigate = useNavigate()
   const location = useLocation()
   const redirectTo = location.state?.from?.pathname || "/"
 
+  // Load all seeded users from Dexie
+  useEffect(() => {
+    db.users.toArray().then(setUsers)
+  }, [])
+
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     setError("")
 
-    const user = await db.users.where("username").equals(username).first()
-    if (!user) {
-      setError("User not found.")
+    if (!selectedUserId) {
+      setError("Please select a user.")
       return
     }
 
-    login(user.id)
+    login(selectedUserId)
     navigate(redirectTo, { replace: true })
   }
 
@@ -35,10 +40,26 @@ export default function LoginPage() {
           <h1 className="text-center text-3xl font-semibold mb-4">MyGram</h1>
 
           <form onSubmit={handleLogin} className="space-y-4">
+
+            {/* USER DROPDOWN */}
+            <select
+              className="w-full border rounded-md p-2 bg-muted text-foreground"
+              value={selectedUserId}
+              onChange={(e) => setSelectedUserId(e.target.value)}
+            >
+              <option value="">Select user…</option>
+              {users.map(u => (
+                <option key={u.id} value={u.id}>
+                  {u.username}
+                </option>
+              ))}
+            </select>
+
+            {/* DISABLED PASSWORD FIELD */}
             <Input
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Password (disabled)"
+              disabled
+              className="opacity-50 pointer-events-none"
             />
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -47,6 +68,14 @@ export default function LoginPage() {
               Log in
             </Button>
           </form>
+
+          {/* SIGN UP LINK (dummy for now) */}
+          <p className="text-center text-sm text-muted-foreground">
+            Don’t have an account?{" "}
+            <span className="text-primary cursor-pointer">
+              Sign Up
+            </span>
+          </p>
         </CardContent>
       </Card>
     </div>
