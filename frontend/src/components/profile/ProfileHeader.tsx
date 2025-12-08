@@ -155,8 +155,21 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
 
         {/* Username + name + stats */}
         <div className="flex flex-col gap-3">
-          {/* Username */}
-          <h1 className="text-xl font-semibold">@{user.username}</h1>
+          {/* Username + Follow/Following button */}
+          <div className="flex items-center gap-4">
+            <h1 className="text-xl font-semibold">@{user.username}</h1>
+                    
+            {!isOwner && (
+              <Button
+                size="sm"
+                variant={isFollowing ? "outline" : "default"}  // outline for "Following", filled for "Follow"
+                className={isFollowing ? "text-sm" : "text-sm bg-primary text-white"}
+                onClick={isFollowing ? handleUnfollow : handleFollow}
+              >
+                {isFollowing ? "Following" : "Follow"}
+              </Button>
+            )}
+          </div>
 
           {/* Name */}
           {user.name && (
