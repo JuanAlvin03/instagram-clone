@@ -18,14 +18,21 @@ import RequireAuth from "./RequireAuth"
 import NotFound from "@/pages/NotFound"
 import SavedPostsPage from "@/pages/SavedPostsPage"
 
+import { useAuthContext } from "../app/AuthProvider"
+
 const Router: React.FC = () => {
   const [showComposer, setShowComposer] = useState(false)
+  const { userId } = useAuthContext()   // ← check login state!
 
   return (
     <div className="flex min-h-screen bg-background text-foreground">
-      <SidebarNav onCreateClick={() => setShowComposer(true)} />
+      
+      {/* Show side nav ONLY when logged in */}
+      {userId && (
+        <SidebarNav onCreateClick={() => setShowComposer(true)} />
+      )}
 
-      <main className="flex-1 md:ml-60 flex justify-center p-4">
+      <main className={`flex-1 flex justify-center p-4 ${userId ? "md:ml-60" : ""}`}>
         <div className="w-full mx-auto">
           <Routes>
             {/* Public route */}
@@ -47,14 +54,17 @@ const Router: React.FC = () => {
               </Route>
             </Route>
 
-            {/* 404 fallback */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </main>
 
-      <BottomNav onCreateClick={() => setShowComposer(true)} />
+      {/* Bottom nav ONLY when logged in */}
+      {userId && (
+        <BottomNav onCreateClick={() => setShowComposer(true)} />
+      )}
 
+      {/* Composer modal */}
       <Dialog open={showComposer} onOpenChange={setShowComposer}>
         <DialogContent className="max-w-md w-full sm:rounded-2xl sm:p-6 p-4">
           <DialogHeader>
