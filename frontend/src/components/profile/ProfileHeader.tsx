@@ -33,7 +33,10 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
      LOAD AVATAR
   ====================================================== */
   useEffect(() => {
-    if (!user.avatarKey) return
+    if (!user.avatarKey) {
+      setAvatarUrl(null)
+      return
+    } 
 
     ;(async () => {
       const blobRec = await db.blobs.get(user.avatarKey)
