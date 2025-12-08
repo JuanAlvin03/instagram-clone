@@ -1,24 +1,18 @@
+// src/components/nav/MoreMenu.tsx
 import { Bookmark, LogOut, Settings, UserPlus } from "lucide-react"
 import { Link } from "react-router-dom"
-import { useState } from "react"
-import LogoutConfirm from "../common/LogoutConfirm"
 
 interface MoreMenuProps {
   onClose: () => void
-  onLogout: () => void
+  onRequestLogout: () => void
   currentUsername: string
 }
 
-const MoreMenu = ({ currentUsername, onClose, onLogout }: MoreMenuProps) => {
-  const [showConfirm, setShowConfirm] = useState(false)
-
-  const handleLogoutClick = () => {
-    setShowConfirm(true)
-  }
-
+const MoreMenu = ({ currentUsername, onClose, onRequestLogout }: MoreMenuProps) => {
   return (
     <div
       className="absolute bottom-14 left-4 w-48 bg-popover border border-border rounded-xl shadow-lg py-2 z-50"
+      onMouseLeave={onClose}
     >
       <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm">
         <Settings className="w-4 h-4" /> Settings (placeholder)
@@ -28,25 +22,25 @@ const MoreMenu = ({ currentUsername, onClose, onLogout }: MoreMenuProps) => {
         <UserPlus className="w-4 h-4" /> Switch account (placeholder)
       </button>
 
-      <Link to={`/u/${currentUsername}/saved`}>
-        <Bookmark className="w-4 h-4" /> Saved posts
+      <Link
+        to={`/u/${currentUsername}/saved`}
+        className="flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm"
+        onClick={onClose}
+      >
+        <Bookmark className="w-4 h-4" /> <span>Saved posts</span>
       </Link>
 
       <hr className="my-2 border-border" />
 
       <button
-        onClick={handleLogoutClick}
+        onClick={() => {
+          // Ask the parent to handle logout flow (close menu -> show confirm)
+          onRequestLogout()
+        }}
         className="w-full flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm text-red-500"
       >
         <LogOut className="w-4 h-4" /> Log out
       </button>
-        
-      <LogoutConfirm
-        open={showConfirm}
-        onCancel={() => setShowConfirm(false)}
-        onConfirm={onLogout}
-      />
-
     </div>
   )
 }

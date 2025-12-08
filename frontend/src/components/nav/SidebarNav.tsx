@@ -6,6 +6,7 @@ import { db } from "../../db"
 import { useEffect, useState } from "react"
 import NavItem from "./NavItem"
 import MoreMenu from "./MoreMenu"
+import LogoutConfirm from "../common/LogoutConfirm" // you already have this
 
 interface NavbarProps {
   onCreateClick: () => void
@@ -15,6 +16,7 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
   const { userId, logout } = useAuthContext()
   const [user, setUser] = useState<any>(null)
   const [openMore, setOpenMore] = useState(false)
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -35,8 +37,23 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
     },
   ].filter(Boolean)
 
+  // Called when MoreMenu requests a logout (user clicked its "Log out")
+  const handleRequestLogout = () => {
+    // close the menu first
+    setOpenMore(false)
+    // then show confirmation modal
+    setShowLogoutConfirm(true)
+  }
+
+  // user confirmed logout
+  const handleConfirmLogout = () => {
+    setShowLogoutConfirm(false)
+    logout()
+    navigate("/login", { replace: true })
+  }
+
   return (
-    <aside className="hidden md:flex md:flex-col md:w-60 border-r border-border h-screen p-4 fixed left-0 top-0 bg-background">
+    <aside className="hidden md:flex md:flex-col md:w-60 border-r border-border h-screen p-4 fixed left-0 top-0 bg-background z-40">
       <div className="text-2xl font-bold mb-8 px-4">MyGram</div>
 
       <nav className="flex flex-col gap-2 flex-1">
@@ -66,14 +83,18 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
         {openMore && (
           <MoreMenu
             onClose={() => setOpenMore(false)}
-            onLogout={() => {
-              logout()
-              navigate("/login", { replace: true })
-            }}
+            onRequestLogout={handleRequestLogout}
             currentUsername={currentUsername}
           />
         )}
       </div>
+
+      {/* Logout confirmation modal (parent controls it) */}
+      <LogoutConfirm
+        open={showLogoutConfirm}
+        onCancel={() => setShowLogoutConfirm(false)}
+        onConfirm={handleConfirmLogout}
+      />
     </aside>
   )
 }
