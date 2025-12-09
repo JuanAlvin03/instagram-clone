@@ -207,19 +207,34 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
 
         {/* Buttons row */}
         {isOwner && (
-          <div className="flex gap-3">
-            <Button size="sm" onClick={() => setShowEditModal(true)}>
+          <div className="flex gap-3 justify-center">
+          
+            <Button
+              size="sm"
+              onClick={() => setShowEditModal(true)}
+              className="w-28"
+            >
               Edit Profile
             </Button>
-
+        
             <Link
               to={`/u/${user.username}/saved`}
-              className="px-4 py-2 bg-muted rounded-md text-sm font-medium hover:bg-muted/80 transition"
+              className="w-28 px-4 py-2 bg-muted rounded-md text-sm font-medium text-center hover:bg-muted/80 transition"
             >
               Saved
             </Link>
+        
+            {/* Disabled Settings button */}
+            <button
+              disabled
+              className="w-28 px-4 py-2 rounded-md text-sm font-medium bg-muted opacity-50 cursor-not-allowed text-center"
+            >
+              Settings
+            </button>
+        
           </div>
         )}
+
       </div>
 
       <EditProfileModal
