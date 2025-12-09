@@ -71,7 +71,7 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
       <div className="relative px-4">
         <button
           onClick={() => setOpenMore(prev => !prev)}
-          className="flex items-center justify-between gap-3 px-4 py-2 w-full rounded-lg hover:bg-muted transition"
+          className="more-button-trigger flex items-center justify-between gap-3 py-2 w-full rounded-lg hover:bg-muted transition"
         >
           <div className="flex items-center gap-3">
             <Menu className="w-6 h-6" />

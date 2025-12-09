@@ -158,6 +158,14 @@ button:focus-visible {
   font-weight: 500;
 }
 
+.more-button-trigger {
+  padding-left: 0px;
+  padding-right: 0px;
+  font-weight: 600;
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

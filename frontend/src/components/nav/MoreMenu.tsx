@@ -12,7 +12,7 @@ const MoreMenu = ({ currentUsername, onClose, onRequestLogout }: MoreMenuProps) 
   return (
     <div
       className="absolute bottom-14 left-4 w-48 bg-popover border border-border rounded-xl shadow-lg py-2 z-50"
-      //onMouseLeave={onClose}
+      onMouseLeave={onClose}
     >
       <button disabled className="w-full flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm disabled:opacity-50 disabled:pointer-events-none">
         <Settings className="w-4 h-4" /> Settings
