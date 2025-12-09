@@ -61,7 +61,17 @@ const SavedPostsPage = () => {
 
   return (
     <div className="max-w-screen-md mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">Saved Posts</h2>
+      {/* Back Button + Title */}
+      <div className="flex items-center gap-4 mb-4">
+        <button
+          onClick={() => window.history.back()}
+          className="p-2 rounded-full hover:bg-muted transition"
+        >
+          ←
+        </button>
+    
+        <h2 className="text-xl font-bold">Saved Posts</h2>
+      </div>
 
       {user.id !== currentUserId ? (
         <div className="text-muted-foreground">You cannot view someone else's saved posts.</div>
