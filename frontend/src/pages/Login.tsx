@@ -30,7 +30,7 @@ export default function LoginPage() {
     }
 
     login(selectedUserId)
-    navigate(redirectTo, { replace: true })
+    navigate("/", { replace: true })
   }
 
   return (
