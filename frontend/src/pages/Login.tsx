@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react"
-import { useNavigate, useLocation, Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useAuthContext } from "../app/AuthProvider"
 import { db } from "../db"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import type { User } from "@/types/models"
 
 export default function LoginPage() {
   const { login } = useAuthContext()
-  const [users, setUsers] = useState<any[]>([])
+  const [users, setUsers] = useState<User[]>([])
   const [selectedUserId, setSelectedUserId] = useState("")
   const [error, setError] = useState("")
   const navigate = useNavigate()
-  const location = useLocation()
-  const redirectTo = location.state?.from?.pathname || "/"
 
   // Load all seeded users from Dexie
   useEffect(() => {

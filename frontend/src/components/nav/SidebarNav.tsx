@@ -7,7 +7,6 @@ import { useEffect, useState } from "react"
 import NavItem from "./NavItem"
 import MoreMenu from "./MoreMenu"
 import LogoutConfirm from "../common/LogoutConfirm" // you already have this
-
 interface NavbarProps {
   onCreateClick: () => void
 }
