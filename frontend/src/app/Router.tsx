@@ -70,7 +70,11 @@ const Router: React.FC = () => {
           <DialogHeader>
             <DialogTitle>Create new post</DialogTitle>
           </DialogHeader>
-          <Composer onSuccess={() => setShowComposer(false)} />
+          <Composer
+            open={showComposer}
+            onOpenChange={setShowComposer}
+            onSuccess={() => setShowComposer(false)}
+          />
         </DialogContent>
       </Dialog>
     </div>
