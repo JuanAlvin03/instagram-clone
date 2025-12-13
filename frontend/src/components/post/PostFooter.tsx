@@ -1,5 +1,5 @@
 // components/post/PostFooter.tsx
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import PostActions from "./PostActions"
 import CommentSheet from "./CommentSheet"
 import { Link } from "react-router-dom"
@@ -85,9 +85,7 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
             >
               {username}
             </Link>{" "}
-            <span
-              className="truncate inline-block max-w-full align-middle overflow-hidden text-ellipsis whitespace-nowrap"
-            >
+            <span className="whitespace-pre-line">
               {caption}
             </span>
 
@@ -108,7 +106,9 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
             >
               {username}
             </Link>{" "}
-            {caption}
+            <span className="whitespace-pre-line">
+              {caption}
+            </span>
           </div>
         )}
 
