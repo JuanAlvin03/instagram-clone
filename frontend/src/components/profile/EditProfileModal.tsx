@@ -18,6 +18,7 @@ const EditProfileModal: React.FC<Props> = ({ open, onClose, user, onUpdated }) =
   const [newAvatar, setNewAvatar] = useState<File | null>(null)
 
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
+  const BIO_LIMIT = 150
 
   useEffect(() => {
     let active = true
@@ -98,12 +99,30 @@ const EditProfileModal: React.FC<Props> = ({ open, onClose, user, onUpdated }) =
         {/* Bio */}
         <div>
           <label className="text-sm mb-1 block">Bio</label>
+          
           <textarea
             value={bio}
             onChange={(e) => setBio(e.target.value)}
-            className="w-full border rounded p-2 text-sm"
-            maxLength={150}
+            className="w-full border rounded p-2 text-sm resize-none"
+            maxLength={BIO_LIMIT}
+            rows={4}
           />
+        
+          {/* Character counter */}
+          <div className="mt-1 text-xs text-muted-foreground text-right">
+            <span
+              className={
+                bio.length >= BIO_LIMIT
+                  ? "text-red-500"
+                  : bio.length >= BIO_LIMIT * 0.9
+                  ? "text-orange-500"
+                  : ""
+              }
+            >
+              {bio.length}
+            </span>
+            /{BIO_LIMIT}
+          </div>
         </div>
 
         <Button onClick={saveChanges} className="w-full">Save</Button>
