@@ -102,6 +102,7 @@ const EditProfileModal: React.FC<Props> = ({ open, onClose, user, onUpdated }) =
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             className="w-full border rounded p-2 text-sm"
+            maxLength={150}
           />
         </div>
 

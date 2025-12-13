@@ -201,7 +201,7 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
       {/* BOTTOM SECTION: Bio + buttons */}
       <div className="flex flex-col gap-4 max-w-lg">
         {/* Bio */}
-        <p className="text-sm">
+        <p className="text-sm whitespace-pre-wrap">
           {bio || (isOwner ? "Add a bio…" : "")}
         </p>
 
