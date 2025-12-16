@@ -15,7 +15,7 @@ interface Props {
 const PostActions: React.FC<Props> = ({ onOpenComments, postId }) => {
   const { userId } = useAuthContext();
 
-  const { liked, likeCount: liveLikeCount, toggleLike } = useLike(postId, userId);
+  const { liked, likeCount: liveLikeCount, toggleLike } = useLike(postId, userId || "");
   const liveCommentsCount = useCommentsCount(postId);
 
   // New saved-post hook

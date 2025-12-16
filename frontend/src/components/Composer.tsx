@@ -58,7 +58,7 @@ const Composer: React.FC<ComposerProps> = ({ open, onOpenChange, onSuccess }) =>
 
   async function handleSubmit() {
     if (!file) return
-
+    if (!userId) return
     const blob = await file.slice(0, file.size, file.type)
     const key = id()
 
