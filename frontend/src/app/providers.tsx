@@ -1,6 +1,6 @@
 // app/providers.tsx
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { db } from '../db'
 import { seedIfEmpty } from '../db/seed'
 import { DexieContext } from './db'
@@ -27,7 +27,7 @@ const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   return (
     <DexieContext.Provider value={db}>
-      <BrowserRouter>{children}</BrowserRouter>
+      <HashRouter>{children}</HashRouter>
     </DexieContext.Provider>
   )
 }
