@@ -39,7 +39,7 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
     } 
 
     ;(async () => {
-      const blobRec = await db.blobs.get(user.avatarKey)
+      const blobRec = await db.blobs.get(user.avatarKey || "")
       if (!blobRec) return
       const url = URL.createObjectURL(blobRec.data)
       setAvatarUrl(url)

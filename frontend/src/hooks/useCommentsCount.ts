@@ -30,9 +30,9 @@ export function useCommentsCount(postId: string) {
       if (mounted) setCommentsCount(count);
     };
 
-    comments.hook("creating", listener);
-    comments.hook("updating", listener);
-    comments.hook("deleting", listener);
+    comments.hook("creating").subscribe(listener)
+    comments.hook("updating").subscribe(listener)
+    comments.hook("deleting").subscribe(listener)
 
     return () => {
       mounted = false;

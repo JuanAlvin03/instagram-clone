@@ -21,12 +21,14 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
   // Load comments
   const loadComments = async () => {
     const list = await db.comments.where({ postId }).sortBy("createdAt")
-    const withUsers = await Promise.all(
-      list.map(async c => ({
+
+    const withUsers: Array<Comment & { user: User | null }> = await Promise.all(
+      list.map(async (c) => ({
         ...c,
-        user: await db.users.get(c.userId)
+        user: (await db.users.get(c.userId)) ?? null,
       }))
     )
+
     setComments(withUsers)
     return list.length
   }
@@ -39,7 +41,7 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
   // Add comment
   const submit = async () => {
     if (!text.trim()) return
-
+    if (!currentUserId) return
     await db.comments.add({
       id: crypto.randomUUID(),
       postId,
@@ -100,10 +102,10 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
             comments.map(c => (
               <div key={c.id} className="text-sm">
                 <Link
-                  to={`/u/${c.user?.username ?? "user"}`}
+                  to={c.user ? `/u/${c.user.username}` : "#"}
                   className="font-semibold text-sm hover:underline"
                 >
-                  {c.user?.username ?? "user"}
+                  {c.user?.username ?? "Deleted user"}
                 </Link>{" "}
                 {c.text}
               </div>

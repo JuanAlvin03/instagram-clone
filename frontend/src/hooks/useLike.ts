@@ -12,23 +12,27 @@ export function useLike(postId: string, userId: string) {
 
   useEffect(() => {
     let mounted = true;
-
+    
     async function load() {
       const post = await db.posts.get(postId);
       const existing = await db.likes
         .where({ postId, userId })
         .first();
-
+    
       if (mounted) {
         setLiked(!!existing);
         setLikeCount(post?.likeCount ?? 0);
         setLoading(false);
       }
     }
-
+  
     load();
-    return () => (mounted = false);
+  
+    return () => {
+      mounted = false; // ← no return value
+    };
   }, [postId, userId]);
+
 
   // LIKE / UNLIKE
   const toggleLike = async () => {
