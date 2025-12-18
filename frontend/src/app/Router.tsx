@@ -8,6 +8,7 @@ import PostPage from "../pages/PostPage"
 import LoginPage from "../pages/Login"
 import RegisterPage from "@/pages/Register"
 import FollowPage from "../pages/FollowPage"
+import AboutPage from "@/pages/About"
 
 import SidebarNav from "../components/nav/SidebarNav"
 import BottomNav from "../components/nav/BottomNav"
@@ -38,6 +39,7 @@ const Router: React.FC = () => {
             {/* Public route */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/about" element={<AboutPage />} />
 
             {/* Protected routes */}
             <Route element={<RequireAuth />}>
