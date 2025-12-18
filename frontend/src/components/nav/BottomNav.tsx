@@ -46,7 +46,7 @@ const BottomNav = ({ onCreateClick }: BottomNavProps) => {
         <Compass className="w-6 h-6" />
       </NavLink>
 
-      <button onClick={onCreateClick}>
+      <button onClick={onCreateClick} className="button-in-bottom-navbar">
         <PlusSquare className="w-6 h-6 botnavbutton transition" />
       </button>
 
@@ -60,7 +60,7 @@ const BottomNav = ({ onCreateClick }: BottomNavProps) => {
       )}
 
       {/* Logout */}
-      <button onClick={handleLogoutClick}>
+      <button onClick={handleLogoutClick} className="button-in-bottom-navbar">
         <LogOut className="w-6 h-6 text-red-500 hover:text-red-600 transition" />
       </button>
 

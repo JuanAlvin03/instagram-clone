@@ -142,6 +142,10 @@ button:focus-visible {
   @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
 }
 
+.button-in-bottom-navbar{
+  padding: 0;
+}
+
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
