@@ -22,6 +22,14 @@ const AboutPage: React.FC = () => {
             profiles, and following — all without a traditional backend.
           </p>
 
+          {/* Disclaimer */}
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            <strong>Disclaimer:</strong> This is a frontend-only demo application.
+            No real backend or authentication is implemented. All data is stored
+            locally in your browser. The data / changes you make here will not be
+            visible to others.
+          </p>
+
           {/* Tech Stack */}
           <div>
             <h2 className="text-lg font-semibold mb-2">Tech Stack</h2>

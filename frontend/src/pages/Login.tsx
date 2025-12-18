@@ -75,6 +75,11 @@ export default function LoginPage() {
               Register
             </Link>
           </p>
+
+          {/* INFO */}
+          <p className="text-sm text-muted-foreground">
+            This is a demo app. Select any user and log in without a password. Data is stored locally in your browser. Changes you make will not be visible to others.
+          </p>
         </CardContent>
       </Card>
     </div>
