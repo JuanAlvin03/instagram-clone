@@ -1,5 +1,5 @@
 // src/components/nav/SidebarNav.tsx
-import { Home, Compass, User, PlusSquare, Menu } from "lucide-react"
+import { Home, Compass, User, PlusSquare, Menu, Info } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useAuthContext } from "../../app/AuthProvider"
 import { db } from "../../db"
@@ -66,6 +66,15 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
           />
         ))}
       </nav>
+
+      <div className="relative">
+        <NavItem
+          key={"About"}
+          icon={<Info className="w-6 h-6" />}
+          label={"About"}
+          to={"/about"}
+        />
+      </div>
 
       {/* --- MORE DROPDOWN TRIGGER --- */}
       <div className="relative px-4">
