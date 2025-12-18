@@ -52,7 +52,7 @@ export async function seedIfEmpty() {
 
   // Use an existing public asset as placeholder image
   try {
-    const res = await fetch('/vite.svg')
+    const res = await fetch('vite.svg')
     const blob = await res.blob()
     const imgKey = id()
     await db.blobs.put({ key: imgKey, data: blob })
