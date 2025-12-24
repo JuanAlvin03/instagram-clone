@@ -33,7 +33,7 @@ const Router: React.FC = () => {
         <SidebarNav onCreateClick={() => setShowComposer(true)} />
       )}
 
-      <main className={`flex-1 flex justify-center p-4 ${userId ? "md:ml-60" : ""}`}>
+      <main className={`flex-1 flex justify-center px-2 py-4 sm:px-4 ${userId ? "md:ml-60" : ""}`}>
         <div className="w-full mx-auto">
           <Routes>
             {/* Public route */}

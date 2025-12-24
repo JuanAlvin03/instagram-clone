@@ -6,6 +6,13 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html,
+body,
+#root {
+  min-height: 100%;
+  background-color: hsl(var(--background));
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

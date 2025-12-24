@@ -142,10 +142,10 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
     <div className="py-6 px-2 flex flex-col gap-6">
 
       {/* TOP SECTION: Avatar + username + name + stats */}
-      <div className="flex gap-10">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-10">
         {/* Avatar */}
         <div className="flex items-start">
-          <div className="w-28 h-28 rounded-full overflow-hidden bg-muted">
+          <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden bg-muted">
             {avatarUrl ? (
               <img src={avatarUrl} className="w-full h-full object-cover" />
             ) : (
@@ -159,7 +159,7 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
         {/* Username + name + stats */}
         <div className="flex flex-col gap-3">
           {/* Username + Follow/Following button */}
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-xl font-semibold">@{user.username}</h1>
                     
             {!isOwner && (
@@ -182,7 +182,7 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
           )}
 
           {/* Stats */}
-          <div className="flex gap-6 text-sm">
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
             <span>
               <strong>{postCount}</strong> {postCount === 1 ? "post" : "posts"}
             </span>
@@ -199,7 +199,7 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
       </div>
 
       {/* BOTTOM SECTION: Bio + buttons */}
-      <div className="flex flex-col gap-4 max-w-lg">
+      <div className="flex flex-col gap-4 max-w-lg w-full">
         {/* Bio */}
         <p className="text-sm whitespace-pre-wrap">
           {bio || (isOwner ? "Add a bio…" : "")}
@@ -207,19 +207,19 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
 
         {/* Buttons row */}
         {isOwner && (
-          <div className="flex gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
           
             <Button
               size="sm"
               onClick={() => setShowEditModal(true)}
-              className="w-28"
+              className="w-full sm:w-28"
             >
               Edit Profile
             </Button>
         
             <Link
               to={`/u/${user.username}/saved`}
-              className="w-28 px-4 py-2 bg-muted rounded-md text-sm font-medium text-center hover:bg-muted/80 transition"
+              className="w-full sm:w-28 px-4 py-2 bg-muted rounded-md text-sm font-medium text-center hover:bg-muted/80 transition"
             >
               Saved
             </Link>
@@ -227,7 +227,7 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
             {/* Disabled Settings button */}
             <button
               disabled
-              className="w-28 px-4 py-2 rounded-md text-sm font-medium bg-muted opacity-50 cursor-not-allowed text-center"
+              className="w-full sm:w-28 px-4 py-2 rounded-md text-sm font-medium bg-muted opacity-50 cursor-not-allowed text-center"
             >
               Settings
             </button>
