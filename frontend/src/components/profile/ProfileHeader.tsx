@@ -5,6 +5,7 @@ import { useAuthContext } from "@/app/AuthProvider"
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import EditProfileModal from "./EditProfileModal"
+import { Settings } from "lucide-react"
 
 interface Props {
   user: User
@@ -139,103 +140,117 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
      RENDER
   ====================================================== */
   return (
-    <div className="py-6 px-2 flex flex-col gap-6">
+    <div className="px-3 py-4 flex flex-col gap-4 max-w-screen-md mx-auto">
 
-      {/* TOP SECTION: Avatar + username + name + stats */}
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-10">
+      {/* USERNAME (TOP, MOBILE FIRST) */}
+      <h1 className="text-lg font-semibold text-center sm:text-left">
+        @{user.username}
+      </h1>
+
+      {/* AVATAR + NAME + STATS */}
+      <div className="flex gap-4 items-center">
         {/* Avatar */}
-        <div className="flex items-start">
-          <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden bg-muted">
+        <div className="shrink-0">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-muted">
             {avatarUrl ? (
               <img src={avatarUrl} className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-muted-foreground text-4xl">
+              <div className="w-full h-full flex items-center justify-center text-muted-foreground text-3xl">
                 👤
               </div>
             )}
           </div>
         </div>
 
-        {/* Username + name + stats */}
-        <div className="flex flex-col gap-3">
-          {/* Username + Follow/Following button */}
-          <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-xl font-semibold">@{user.username}</h1>
-                    
-            {!isOwner && (
-              <Button
-                size="sm"
-                variant={isFollowing ? "outline" : "default"}  // outline for "Following", filled for "Follow"
-                className={isFollowing ? "text-sm" : "text-sm bg-primary text-white"}
-                onClick={isFollowing ? handleUnfollow : handleFollow}
-              >
-                {isFollowing ? "Following" : "Follow"}
-              </Button>
-            )}
-          </div>
-
-          {/* Name */}
+        {/* Name + Stats */}
+        <div className="flex flex-col gap-2 flex-1 min-w-0">
           {user.name && (
-            <div className="text-base font-light">
+            <div className="text-sm font-medium truncate">
               {user.name}
             </div>
           )}
 
-          {/* Stats */}
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-            <span>
-              <strong>{postCount}</strong> {postCount === 1 ? "post" : "posts"}
-            </span>
+          {/* Stats (newline layout for ALL screen sizes) */}
+          <div className="flex gap-4 text-xs sm:text-sm">
+            <div className="text-center">
+              <strong>{postCount}</strong>
+              <div className="text-muted-foreground">posts</div>
+            </div>
 
-            <Link to={`/u/${user.username}/followers`}>
-              <strong>{followerCount}</strong> followers
+            <Link
+              to={`/u/${user.username}/followers`}
+              className="text-center"
+            >
+              <strong>{followerCount}</strong>
+              <div className="text-muted-foreground">followers</div>
             </Link>
 
-            <Link to={`/u/${user.username}/following`}>
-              <strong>{followingCount}</strong> following
+            <Link
+              to={`/u/${user.username}/following`}
+              className="text-center"
+            >
+              <strong>{followingCount}</strong>
+              <div className="text-muted-foreground">following</div>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* BOTTOM SECTION: Bio + buttons */}
-      <div className="flex flex-col gap-4 max-w-lg w-full">
-        {/* Bio */}
-        <p className="text-sm whitespace-pre-wrap">
-          {bio || (isOwner ? "Add a bio…" : "")}
-        </p>
+      {/* BIO */}
+      <p className="text-sm whitespace-pre-wrap">
+        {bio || (isOwner ? "Add a bio…" : "")}
+      </p>
 
-        {/* Buttons row */}
-        {isOwner && (
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          
-            <Button
-              size="sm"
-              onClick={() => setShowEditModal(true)}
-              className="w-full sm:w-28"
-            >
-              Edit Profile
-            </Button>
-        
-            <Link
-              to={`/u/${user.username}/saved`}
-              className="w-full sm:w-28 px-4 py-2 bg-muted rounded-md text-sm font-medium text-center hover:bg-muted/80 transition"
-            >
-              Saved
-            </Link>
-        
-            {/* Disabled Settings button */}
-            <button
-              disabled
-              className="w-full sm:w-28 px-4 py-2 rounded-md text-sm font-medium bg-muted opacity-50 cursor-not-allowed text-center"
-            >
-              Settings
-            </button>
-        
-          </div>
-        )}
+      {/* FOLLOW / MESSAGE BUTTONS */}
+      {!isOwner && (
+        <div className="flex justify-center gap-3">
+          <Button
+            size="sm"
+            variant={isFollowing ? "outline" : "default"}
+            onClick={isFollowing ? handleUnfollow : handleFollow}
+            className="w-28"
+          >
+            {isFollowing ? "Following" : "Follow"}
+          </Button>
 
-      </div>
+          <Button
+            size="sm"
+            variant="outline"
+            disabled
+            className="w-28 opacity-50"
+          >
+            Message
+          </Button>
+        </div>
+      )}
+
+      {/* OWNER ACTIONS */}
+      {isOwner && (
+        <div className="flex justify-center gap-2">
+          <Button
+            size="sm"
+            onClick={() => setShowEditModal(true)}
+            className="w-24"
+          >
+            Edit Profile
+          </Button>
+
+          <Link
+            to={`/u/${user.username}/saved`}
+            className="w-24 px-3 py-2 bg-muted rounded-md text-sm font-medium text-center hover:bg-muted/80 transition"
+          >
+            Saved
+          </Link>
+
+          <button
+            disabled
+            className="w-10 h-9 flex items-center justify-center rounded-md bg-muted opacity-50 cursor-not-allowed"
+            title="Settings"
+          >
+            <Settings size={16} />
+          </button>
+        </div>
+      )}
 
       <EditProfileModal
         open={showEditModal}
