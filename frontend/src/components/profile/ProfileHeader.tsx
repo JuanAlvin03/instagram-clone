@@ -152,13 +152,7 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
         {/* Avatar */}
         <div className="shrink-0">
           <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-muted">
-            {avatarUrl ? (
-              <img src={avatarUrl} className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-muted-foreground text-3xl">
-                👤
-              </div>
-            )}
+            <img src={avatarUrl ? avatarUrl : 'unknown.svg'} className="w-full h-full object-cover" />
           </div>
         </div>
 

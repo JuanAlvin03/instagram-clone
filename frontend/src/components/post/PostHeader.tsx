@@ -36,7 +36,7 @@ const PostHeader: React.FC<Props> = ({ author }) => {
     <header className="flex items-center justify-between p-3 border-b border-border">
       <div className="flex items-center gap-3">
         <Avatar className="h-10 w-10 rounded-full overflow-hidden border border-border">
-          <AvatarImage src={avatarUrl ?? 'vite.svg'} className="object-cover w-full h-full" />
+          <AvatarImage src={avatarUrl ?? 'unknown.svg'} className="object-cover w-full h-full" />
           <AvatarFallback>{username[0]?.toUpperCase() || 'U'}</AvatarFallback>
         </Avatar>
 
