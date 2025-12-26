@@ -25,7 +25,7 @@ const AboutPage: React.FC = () => {
           {/* Disclaimer */}
           <p className="text-sm text-muted-foreground leading-relaxed">
             <strong>Disclaimer:</strong> This is a frontend-only demo application.
-            No real backend or authentication is implemented. All data is stored
+            No real backend or authentication is implemented (yet). All data is stored
             locally in your browser. The data / changes you make here will not be
             visible to others.
           </p>

@@ -41,7 +41,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
   }, [post.imageKey, post.authorId])
 
   return (
-    <Card className="overflow-hidden max-w-md w-full rounded-2xl bg-card border border-border shadow-sm">
+    <Card className="py-1 overflow-hidden max-w-md w-full rounded-2xl bg-card border border-border shadow-sm">
       <PostHeader author={author}/>
       <PostImage imageUrl={imageUrl} caption={post.caption} />
       <PostFooter 
