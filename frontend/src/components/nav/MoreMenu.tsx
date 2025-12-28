@@ -1,4 +1,3 @@
-// src/components/nav/MoreMenu.tsx
 import { Bookmark, LogOut, Settings, UserPlus } from "lucide-react"
 import { Link } from "react-router-dom"
 

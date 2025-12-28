@@ -6,7 +6,7 @@ import { db } from "../../db"
 import { useEffect, useState } from "react"
 import NavItem from "./NavItem"
 import MoreMenu from "./MoreMenu"
-import LogoutConfirm from "../common/LogoutConfirm" // you already have this
+import LogoutConfirm from "../common/LogoutConfirm"
 interface NavbarProps {
   onCreateClick: () => void
 }
