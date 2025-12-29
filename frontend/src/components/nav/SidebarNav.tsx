@@ -77,10 +77,10 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
       </div>
 
       {/* --- MORE DROPDOWN TRIGGER --- */}
-      <div className="relative px-4">
+      <div className="relative">
         <button
           onClick={() => setOpenMore(prev => !prev)}
-          className="more-button-trigger flex items-center justify-between gap-3 py-2 w-full rounded-lg hover:bg-muted transition"
+          className="flex h-12 items-center gap-3 px-4 rounded-lg transition text-foreground hover:bg-muted button-in-nav"
         >
           <div className="flex items-center gap-3">
             <Menu className="w-6 h-6" />
