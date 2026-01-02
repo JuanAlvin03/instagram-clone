@@ -1,5 +1,5 @@
 // src/components/nav/BottomNav.tsx
-import { Home, Compass, User, PlusSquare, LogOut } from "lucide-react"
+import { Home, Compass, User, PlusSquare, LogOut, Info } from "lucide-react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { useAuthContext } from "../../app/AuthProvider"
 import { db } from "../../db"
@@ -49,6 +49,10 @@ const BottomNav = ({ onCreateClick }: BottomNavProps) => {
       <button onClick={onCreateClick} className="button-in-bottom-navbar">
         <PlusSquare className="w-6 h-6 botnavbutton transition" />
       </button>
+
+      <NavLink to="/about" className={({ isActive }) => (isActive ? "text-primary" : "text-muted-foreground")}>
+        <Info className="w-6 h-6" />
+      </NavLink>
 
       {currentUsername && (
         <NavLink
