@@ -65,6 +65,7 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
         className="
+          margin-auto
           p-0 
           border-none 
           rounded-t-2xl 
