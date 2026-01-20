@@ -9,6 +9,7 @@ import LoginPage from "../pages/Login"
 import RegisterPage from "@/pages/Register"
 import FollowPage from "../pages/FollowPage"
 import AboutPage from "@/pages/About"
+import Setting from "@/pages/Setting"
 
 import SidebarNav from "../components/nav/SidebarNav"
 import BottomNav from "../components/nav/BottomNav"
@@ -53,6 +54,7 @@ const Router: React.FC = () => {
                 <Route path="/u/:username/followers" element={<FollowPage tab="followers" />} />
                 <Route path="/u/:username/following" element={<FollowPage tab="following" />} />
                 <Route path="/u/:username/saved" element={<SavedPostsPage />} />
+                <Route path="/u/:username/settings" element={<Setting />} />
               </Route>
             </Route>
 
