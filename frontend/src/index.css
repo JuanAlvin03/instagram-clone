@@ -181,6 +181,11 @@ button:focus-visible {
   margin: auto;
 }
 
+.remove-gap-post-image {
+  margin-top: -24px;
+  margin-bottom: -24px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

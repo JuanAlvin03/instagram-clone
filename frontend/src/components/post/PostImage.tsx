@@ -8,7 +8,7 @@ interface Props {
 
 const PostImage: React.FC<Props> = ({ imageUrl, caption }) => {
   return (
-    <div className="relative bg-muted flex justify-center">
+    <div className="relative bg-muted flex justify-center remove-gap-post-image">
       {imageUrl ? (
         <img
           src={imageUrl}
