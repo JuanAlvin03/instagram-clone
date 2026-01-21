@@ -140,12 +140,12 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
      RENDER
   ====================================================== */
   return (
-    <div className="px-3 py-4 flex flex-col gap-4 max-w-screen-md mx-auto">
+    <div className="px-0 pb-4 flex flex-col gap-4 max-w-screen-md mx-auto">
 
       {/* USERNAME (TOP, MOBILE FIRST) */}
-      <h1 className="text-lg font-semibold text-center sm:text-left">
+      <span className="text-xl sm:text-3xl font-bold text-center sm:text-left">
         @{user.username}
-      </h1>
+      </span>
 
       {/* AVATAR + NAME + STATS */}
       <div className="flex gap-4 items-center">
@@ -159,21 +159,21 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
         {/* Name + Stats */}
         <div className="flex flex-col gap-2 flex-1 min-w-0">
           {user.name && (
-            <div className="text-sm font-medium truncate">
+            <div className="text-sm font-medium truncate sm:text-base">
               {user.name}
             </div>
           )}
 
           {/* Stats (newline layout for ALL screen sizes) */}
-          <div className="flex gap-4 text-xs sm:text-sm">
-            <div className="text-center">
+          <div className="flex gap-4 text-sm sm:text-base">
+            <div className="pr-2">
               <strong>{postCount}</strong>
               <div className="text-muted-foreground">posts</div>
             </div>
 
             <Link
               to={`/u/${user.username}/followers`}
-              className="text-center"
+              className="pr-2"
             >
               <strong>{followerCount}</strong>
               <div className="text-muted-foreground">followers</div>
@@ -181,7 +181,6 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
 
             <Link
               to={`/u/${user.username}/following`}
-              className="text-center"
             >
               <strong>{followingCount}</strong>
               <div className="text-muted-foreground">following</div>
