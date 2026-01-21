@@ -220,28 +220,27 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
       {/* OWNER ACTIONS */}
       {isOwner && (
         <div className="flex justify-center gap-2">
-          <Button
-            size="sm"
+          <button
             onClick={() => setShowEditModal(true)}
-            className="w-24"
+            className="w-24 font-w-600 button-grey"
           >
             Edit Profile
-          </Button>
+          </button>
 
           <Link
             to={`/u/${user.username}/saved`}
-            className="w-24 px-3 py-2 bg-muted rounded-md text-sm font-medium text-center hover:bg-muted/80 transition"
+            className="w-24 px-3 py-2 rounded-md text-sm font-medium text-center button-grey transition a-not-blue-on-hover"
           >
             Saved
           </Link>
 
-          <button
-            disabled
-            className="w-10 h-9 flex items-center justify-center rounded-md bg-muted opacity-50 cursor-not-allowed"
+          <Link
+            to="/settings"
+            className="w-24 px-3 py-2 rounded-md text-sm font-medium text-center button-grey transition a-not-blue-on-hover flex items-center justify-center gap-1"
             title="Settings"
           >
-            <Settings size={16} />
-          </button>
+            <Settings size={16}/>
+          </Link>
         </div>
       )}
 

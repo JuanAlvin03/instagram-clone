@@ -69,6 +69,10 @@ a:hover {
   color: #535bf2;
 }
 
+.a-not-blue-on-hover:hover {
+  color: black;
+}
+
 a div {
   font-weight: 400;
 }
@@ -185,6 +189,19 @@ button:focus-visible {
   margin-top: -24px;
   margin-bottom: -24px;
 }
+
+.font-w-600{
+  font-weight: 600;
+}
+
+.button-grey {
+  background-color: #eee;
+}
+
+.button-grey:hover {
+  background-color: #aaaaaa;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {

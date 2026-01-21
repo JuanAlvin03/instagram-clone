@@ -54,7 +54,7 @@ const Router: React.FC = () => {
                 <Route path="/u/:username/followers" element={<FollowPage tab="followers" />} />
                 <Route path="/u/:username/following" element={<FollowPage tab="following" />} />
                 <Route path="/u/:username/saved" element={<SavedPostsPage />} />
-                <Route path="/u/:username/settings" element={<Setting />} />
+                <Route path="/settings" element={<Setting />} />
               </Route>
             </Route>
 
