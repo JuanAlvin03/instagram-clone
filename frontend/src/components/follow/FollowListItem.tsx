@@ -73,11 +73,7 @@ const FollowListItem = ({ user }: Props) => {
       <div className="flex items-center gap-3">
         <Link to={`/u/${user.username}`}>
           <div className="w-12 h-12 rounded-full overflow-hidden bg-muted">
-            {avatarUrl ? (
-              <img src={avatarUrl} className="w-full h-full object-cover" />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-xl">👤</div>
-            )}
+            <img src={avatarUrl ? avatarUrl : "unknown.svg"} className="w-full h-full object-cover" />
           </div>
         </Link>
 
