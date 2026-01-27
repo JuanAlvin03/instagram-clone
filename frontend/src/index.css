@@ -80,6 +80,11 @@ a div {
 a strong {
   font-weight: 700;
 }
+
+.red {
+  color: red;
+}
+
 /*
 body {
   margin: 0;
