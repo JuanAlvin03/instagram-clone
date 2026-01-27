@@ -36,7 +36,7 @@ const MoreMenu = ({ currentUsername, onClose, onRequestLogout }: MoreMenuProps) 
           // Ask the parent to handle logout flow (close menu -> show confirm)
           onRequestLogout()
         }}
-        className="w-full flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm text-red-500"
+        className="w-full flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm red"
       >
         <LogOut className="w-4 h-4" /> Log out
       </button>
