@@ -1,32 +1,17 @@
 // src/components/nav/BottomNav.tsx
-import { Home, Compass, User, PlusSquare, LogOut, Info } from "lucide-react"
-import { NavLink, useNavigate } from "react-router-dom"
+import { Home, Compass, User, PlusSquare, Info } from "lucide-react"
+import { NavLink } from "react-router-dom"
 import { useAuthContext } from "../../app/AuthProvider"
 import { db } from "../../db"
 import { useEffect, useState } from "react"
-import LogoutConfirm from "../common/LogoutConfirm"
-
 
 interface BottomNavProps {
   onCreateClick: () => void
 }
 
 const BottomNav = ({ onCreateClick }: BottomNavProps) => {
-  const { userId, logout } = useAuthContext()
+  const { userId } = useAuthContext()
   const [user, setUser] = useState<any>(null)
-  const navigate = useNavigate()
-
-  const [showConfirm, setShowConfirm] = useState(false)
-
-  const handleLogoutClick = () => {
-    setShowConfirm(true)
-  }
-
-  const confirmLogout = () => {
-    setShowConfirm(false)
-    logout()
-    navigate("/login", { replace: true })
-  }
 
   useEffect(() => {
     if (!userId) return
@@ -62,18 +47,6 @@ const BottomNav = ({ onCreateClick }: BottomNavProps) => {
           <User className="w-6 h-6" />
         </NavLink>
       )}
-
-      {/* Logout */}
-      <button onClick={handleLogoutClick} className="button-in-bottom-navbar">
-        <LogOut className="w-6 h-6 text-red-500 hover:text-red-600 transition" />
-      </button>
-
-      <LogoutConfirm
-        open={showConfirm}
-        onCancel={() => setShowConfirm(false)}
-        onConfirm={confirmLogout}
-      />
-
     </nav>
   )
 }
