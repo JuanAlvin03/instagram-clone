@@ -1,17 +1,25 @@
-import React from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthContext } from "@/app/AuthProvider"
 import { LogOut } from "lucide-react"
+import LogoutConfirm from "@/components/common/LogoutConfirm"
 
 const Setting: React.FC = () => {
   const { /*userId: currentUserId,*/ logout } = useAuthContext()
   const navigate = useNavigate()
 
-  const handleLogout = () => {
-    logout()
-    navigate("/login")
+  const [showConfirm, setShowConfirm] = useState(false)
+  
+  const handleLogoutClick = () => {
+    setShowConfirm(true)
   }
 
+  const confirmLogout = () => {
+    setShowConfirm(false)
+    logout()
+    navigate("/login", { replace: true })
+  }
+  
   const setting_item = "px-4 py-3 rounded-lg bg-muted text-sm font-medium"
 
   return (
@@ -54,12 +62,18 @@ const Setting: React.FC = () => {
       {/* LOGOUT */}
       <div className="pt-4 border-t">
         <button
-          onClick={handleLogout}
+          onClick={handleLogoutClick}
           className="w-full sm:w-48 flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm red"
         >
           <LogOut/> Log out
         </button>
       </div>
+
+      <LogoutConfirm
+        open={showConfirm}
+        onCancel={() => setShowConfirm(false)}
+        onConfirm={confirmLogout}
+      />
     </div>
   )
 }
