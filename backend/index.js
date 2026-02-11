@@ -1,10 +1,14 @@
-const express = require('express');
+// APP
+
+import routes from './src/routes.js'
+
+const express = require('express')
 //const cookieParser = require('cookie-parser') // not installed i think
 //const dotenv = require('dotenv');
 //dotenv.config();
-const app = express();
-const port = /*process.env.PORT ||*/ 3000;
+const app = express()
 
+//app.use(cors()) // not installed i think
 app.use(express.urlencoded({extended: true}))
 app.use(express.json()); // Middleware to parse JSON bodies
 //app.use(cookieParser());
@@ -13,6 +17,18 @@ app.get('/', (req, res) => {
   res.status(200).json({ message: 'Server is running' });
 });
 
+app.use("/api/v1", routes)
+
+/*
+app.use(errorHandler) // import from middlewares
+export default app // if separate server file is used
+ */
+
+//=======================================================================
+
+// SERVER
+// import app from './app'; // if separate app file is used
+const port = /*process.env.PORT ||*/ 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
