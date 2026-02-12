@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
-const userModel = require("../models/userModel")
-const { hashPassword, comparePassword } = require("../utils/password")
-const { generateAccessToken, generateRefreshToken } = require("../utils/jwt")
+const userModel = require("../models/user.model")
+const { hashPassword, comparePassword } = require("../utils/password.util")
+const { generateAccessToken, generateRefreshToken } = require("../utils/jwt.util")
 
 // REGISTER
 exports.register = async (req, res) => {

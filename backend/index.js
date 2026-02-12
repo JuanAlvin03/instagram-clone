@@ -1,17 +1,21 @@
 // APP
-
-import routes from './src/routes.js'
-
+require('dotenv').config()
 const express = require('express')
-//const cookieParser = require('cookie-parser') // not installed i think
-//const dotenv = require('dotenv');
-//dotenv.config();
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
+const routes = require('./src/routes')
+
 const app = express()
 
-//app.use(cors()) // not installed i think
+// accept req from 5173 (vite default port) (react frontend)
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}))
+
 app.use(express.urlencoded({extended: true}))
-app.use(express.json()); // Middleware to parse JSON bodies
-//app.use(cookieParser());
+app.use(express.json()) // Middleware to parse JSON bodies
+app.use(cookieParser())
 
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Server is running' });
@@ -28,7 +32,7 @@ export default app // if separate server file is used
 
 // SERVER
 // import app from './app'; // if separate app file is used
-const port = /*process.env.PORT ||*/ 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
