@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, Navigate, useLocation } from "react-router-dom"
 import { useAuthContext } from "../app/AuthProvider"
 import { db } from "../db"
 import { Card, CardContent } from "@/components/ui/card"
@@ -8,12 +8,13 @@ import { Input } from "@/components/ui/input"
 import type { User } from "@/types/models"
 
 export default function LoginPage() {
+
+  const navigate = useNavigate()
   const { login } = useAuthContext()
   const [users, setUsers] = useState<User[]>([])
   const [selectedUserId, setSelectedUserId] = useState("")
   const [error, setError] = useState("")
-  const navigate = useNavigate()
-
+  
   // Load all seeded users from Dexie
   useEffect(() => {
     db.users.toArray().then(setUsers)
@@ -30,6 +31,13 @@ export default function LoginPage() {
 
     login(selectedUserId)
     navigate("/", { replace: true })
+  }
+
+  const { userId } = useAuthContext()
+  const location = useLocation()
+
+  if (userId) {
+    return <Navigate to="/" replace state={{ from: location }} />
   }
 
   return (

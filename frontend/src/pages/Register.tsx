@@ -1,7 +1,16 @@
 //import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation,  } from "react-router-dom";
+import { useAuthContext } from "../app/AuthProvider";
 
 export default function RegisterPage() {
+
+  const { userId } = useAuthContext()
+  const location = useLocation()
+
+  if (userId) {
+    return <Navigate to="/" replace state={{ from: location }} />
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
       <div className="w-full max-w-sm bg-white p-6 rounded-2xl shadow-lg space-y-6">
