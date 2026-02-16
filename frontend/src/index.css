@@ -127,6 +127,16 @@ button {
   cursor: pointer;
 }
 
+.cancel-button {
+  @apply bg-muted text-muted-foreground;
+}
+
+.red-button {
+  background-color: red;
+  font-weight: 700;
+  color: white;
+}
+
 .feed-mode-toggle-button {
   @apply px-4 py-1.5 rounded-full text-sm font-medium transition;
 }
@@ -137,10 +147,14 @@ button {
   @apply bg-muted text-muted-foreground;
 }
 
-/* Hover effect — subtle gray/white tint depending on theme */
-button:hover {
-  @apply bg-muted/50;
+.darken-on-hover:hover {
+  filter: brightness(80%); 
 }
+
+/* Hover effect — subtle gray/white tint depending on theme 
+button:hover {
+  @apply bg-muted/80;
+}*/
 .special-more-button {
   padding: 0;
   border: none;

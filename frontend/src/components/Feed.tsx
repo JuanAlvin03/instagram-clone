@@ -74,8 +74,8 @@ const Feed: React.FC = () => {
         <button
           className={`feed-mode-toggle-button ${
             mode === "following"
-              ? "feed-mode-toggle-selected"
-              : "feed-mode-toggle-off"
+              ? "feed-mode-toggle-selected pointer-events-none"
+              : "feed-mode-toggle-off darken-on-hover"
           }`}
           onClick={() => setMode("following")}
         >
@@ -85,8 +85,8 @@ const Feed: React.FC = () => {
         <button
           className={`feed-mode-toggle-button ${
             mode === "all"
-              ? "feed-mode-toggle-selected"
-              : "feed-mode-toggle-off"
+              ? "feed-mode-toggle-selected pointer-events-none"
+              : "feed-mode-toggle-off darken-on-hover"
           }`}
           onClick={() => setMode("all")}
         >

@@ -20,10 +20,10 @@ export default function LogoutConfirm({ open, onCancel, onConfirm }: LogoutConfi
           </p>
 
           <div className="flex justify-end gap-3">
-            <Button variant="outline" onClick={onCancel}>
+            <Button variant="outline" onClick={onCancel} className="darken-on-hover cancel-button">
               Cancel
             </Button>
-            <Button variant="destructive" onClick={onConfirm}>
+            <Button variant="destructive" onClick={onConfirm} className="darken-on-hover red-button">
               Log out
             </Button>
           </div>
