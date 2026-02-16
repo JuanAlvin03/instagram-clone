@@ -72,10 +72,10 @@ const Feed: React.FC = () => {
       {/* 🔥 Feed toggle */}
       <div className="flex items-center gap-3 mb-2">
         <button
-          className={`px-4 py-1.5 rounded-full text-sm font-medium transition ${
+          className={`feed-mode-toggle-button ${
             mode === "following"
-              ? "bg-primary text-white"
-              : "bg-muted text-muted-foreground"
+              ? "feed-mode-toggle-selected"
+              : "feed-mode-toggle-off"
           }`}
           onClick={() => setMode("following")}
         >
@@ -83,10 +83,10 @@ const Feed: React.FC = () => {
         </button>
 
         <button
-          className={`px-4 py-1.5 rounded-full text-sm font-medium transition ${
+          className={`feed-mode-toggle-button ${
             mode === "all"
-              ? "bg-primary text-white"
-              : "bg-muted text-muted-foreground"
+              ? "feed-mode-toggle-selected"
+              : "feed-mode-toggle-off"
           }`}
           onClick={() => setMode("all")}
         >

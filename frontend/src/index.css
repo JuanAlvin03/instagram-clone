@@ -127,6 +127,16 @@ button {
   cursor: pointer;
 }
 
+.feed-mode-toggle-button {
+  @apply px-4 py-1.5 rounded-full text-sm font-medium transition;
+}
+.feed-mode-toggle-selected {
+  @apply bg-primary text-white;
+}
+.feed-mode-toggle-off {
+  @apply bg-muted text-muted-foreground;
+}
+
 /* Hover effect — subtle gray/white tint depending on theme */
 button:hover {
   @apply bg-muted/50;
