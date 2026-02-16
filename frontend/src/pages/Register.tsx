@@ -2,6 +2,7 @@
 import { Link, Navigate, useLocation,  } from "react-router-dom";
 import { useAuthContext } from "../app/AuthProvider";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 export default function RegisterPage() {
 
@@ -19,25 +20,25 @@ export default function RegisterPage() {
           <h1 className="text-center text-3xl font-semibold mb-4">Sign Up</h1>
 
           <div className="space-y-4">
-            <input
+            <Input
               type="text"
               placeholder="Username"
               disabled
-              className="w-full p-3 border rounded-xl bg-gray-100 text-gray-500"
+              className="opacity-50 pointer-events-none"
             />
 
-            <input
+            <Input
               type="text"
               placeholder="Full Name"
               disabled
-              className="w-full p-3 border rounded-xl bg-gray-100 text-gray-500"
+              className="opacity-50 pointer-events-none"
             />
 
-            <input
+            <Input
               type="password"
               placeholder="Password"
               disabled
-              className="w-full p-3 border rounded-xl bg-gray-100 text-gray-500"
+              className="opacity-50 pointer-events-none"
             />
 
             <button
