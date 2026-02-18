@@ -71,7 +71,7 @@ export default function LoginPage() {
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="button-confirm darken-on-hover">
               Log in
             </Button>
           </form>
