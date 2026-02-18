@@ -13,9 +13,13 @@ const MoreMenu = ({ currentUsername, onClose, onRequestLogout }: MoreMenuProps) 
       className="absolute bottom-14 left-4 w-48 bg-popover border border-border rounded-xl shadow-lg py-2 z-50"
       onMouseLeave={onClose}
     >
-      <button disabled className="w-full flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm disabled:opacity-50 disabled:pointer-events-none">
-        <Settings className="w-4 h-4" /> Settings
-      </button>
+      <Link
+        to={`/settings`}
+        className="more-menu-link flex items-center gap-3 hover:bg-muted transition text-sm"
+        onClick={onClose}
+      >
+        <Settings className="w-4 h-4" /> <span>Settings</span>
+      </Link>
 
       <button disabled className="w-full flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm disabled:opacity-50 disabled:pointer-events-none">
         <UserPlus className="w-4 h-4" /> Switch account
@@ -36,7 +40,7 @@ const MoreMenu = ({ currentUsername, onClose, onRequestLogout }: MoreMenuProps) 
           // Ask the parent to handle logout flow (close menu -> show confirm)
           onRequestLogout()
         }}
-        className="w-full flex items-center gap-3 px-4 py-2 hover:bg-muted transition text-sm red"
+        className="more-menu-button"
       >
         <LogOut className="w-4 h-4" /> Log out
       </button>
