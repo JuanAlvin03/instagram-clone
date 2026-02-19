@@ -222,21 +222,21 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
         <div className="flex justify-center gap-2">
           <button
             onClick={() => setShowEditModal(true)}
-            className="w-24 px-3 py-2 text-sm font-w-600 font-medium rounded-md button-grey"
+            className="w-full px-3 py-2 text-sm font-w-600 font-medium rounded-md button-grey"
           >
             Edit Profile
           </button>
 
           <Link
             to={`/u/${user.username}/saved`}
-            className="w-24 px-3 py-2 rounded-md text-sm font-medium text-center button-grey transition a-not-blue-on-hover"
+            className="w-full px-3 py-2 rounded-md text-sm font-medium text-center button-grey transition a-not-blue-on-hover"
           >
             Saved
           </Link>
 
           <Link
             to="/settings"
-            className="w-24 px-3 py-2 rounded-md text-sm font-medium text-center button-grey transition a-not-blue-on-hover flex items-center justify-center gap-1"
+            className="w-full px-3 py-2 rounded-md text-sm font-medium text-center button-grey transition a-not-blue-on-hover flex items-center justify-center gap-1"
             title="Settings"
           >
             <Settings size={16}/>
