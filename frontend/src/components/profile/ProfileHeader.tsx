@@ -222,7 +222,7 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
         <div className="flex justify-center gap-2">
           <button
             onClick={() => setShowEditModal(true)}
-            className="w-24 font-w-600 button-grey"
+            className="w-24 px-3 py-2 text-sm font-w-600 font-medium rounded-md button-grey"
           >
             Edit Profile
           </button>

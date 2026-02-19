@@ -101,9 +101,9 @@ h1 {
 }
 
 button {
-  @apply rounded-md border border-transparent px-3 py-1.5 font-medium text-sm transition-colors duration-200;
+  /*@apply rounded-md border border-transparent px-3 py-1.5 font-medium text-sm transition-colors duration-200;
   background-color: transparent;
-  color: inherit;
+  color: inherit;*/
   cursor: pointer;
 }
 

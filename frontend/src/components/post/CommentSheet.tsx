@@ -124,7 +124,7 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
           />
           <button
             onClick={submit}
-            className="text-blue-500 font-semibold text-sm disabled:opacity-50"
+            className="bg-blue-500 text-white rounded-lg px-4 py-2 text-sm disabled:opacity-50 darken-on-hover transition"
             disabled={!text.trim()}
           >
             Post

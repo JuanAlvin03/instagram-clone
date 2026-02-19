@@ -63,7 +63,7 @@ const Setting: React.FC = () => {
       <div className="pt-4 border-t">
         <button
           onClick={handleLogoutClick}
-          className="red-button darken-on-hover w-full flex items-center justify-center gap-2"
+          className="red-button darken-on-hover w-full flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium"
         >
           <LogOut/> Log out
         </button>
