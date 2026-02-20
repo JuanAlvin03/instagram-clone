@@ -84,7 +84,7 @@ const EditProfileModal: React.FC<Props> = ({ open, onClose, user, onUpdated }) =
         <div className="flex justify-center">
           <label className="relative cursor-pointer">
             <img
-              src={previewUrl || avatarUrl || undefined}
+              src={previewUrl || avatarUrl || 'unknown.svg'}
               className="w-24 h-24 rounded-full object-cover bg-muted"
             />
             <input 
