@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { db } from "@/db"
 import type { User, Post } from "@/types/models"
 import GridPost from "@/components/explore/GridPost"
@@ -12,6 +12,7 @@ const SavedPostsPage = () => {
   const objectUrlsRef = useRef<string[]>([])
 
   const { userId: currentUserId } = useAuthContext()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!username) return
@@ -27,6 +28,7 @@ const SavedPostsPage = () => {
     if (user.id !== currentUserId) {
       // Prevent other users from seeing private saved posts
       setPosts([])
+      navigate("/");
       return
     }
 
