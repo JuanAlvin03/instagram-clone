@@ -28,7 +28,7 @@ const SavedPostsPage = () => {
     if (user.id !== currentUserId) {
       // Prevent other users from seeing private saved posts
       setPosts([])
-      navigate("/");
+      navigate("/u/" + user.username);
       return
     }
 
