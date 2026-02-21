@@ -166,14 +166,14 @@ const Composer: React.FC<ComposerProps> = ({ open, onOpenChange, onSuccess }) =>
 
           <div className="flex justify-end gap-2 mt-4">
             <button
-              className="px-3 py-1 rounded-md bg-muted"
+              className="px-3 py-1 rounded-md bg-muted darken-on-hover"
               onClick={() => setShowDiscard(false)}
             >
               Cancel
             </button>
 
             <button
-              className="px-3 py-1 rounded-md bg-red-500 text-white"
+              className="px-3 py-1 rounded-md bg-red-500 text-white darken-on-hover"
               onClick={() => {
                 setShowDiscard(false)
                 onOpenChange(false)
