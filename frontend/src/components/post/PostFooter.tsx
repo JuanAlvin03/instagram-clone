@@ -63,8 +63,11 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
     )
   }
 
-  const fullText = `${username} ${caption}`
-  const shouldTruncate = fullText.length > 50
+  const MAX_CHARACTER_LIMIT = 80; // Adjusted for better UX
+  const isLongCaption = caption.length > MAX_CHARACTER_LIMIT;
+  const displayCaption = (isLongCaption && !expanded) 
+    ? caption.slice(0, MAX_CHARACTER_LIMIT).trim() + "..." 
+    : caption;
 
   return (
     <footer className="p-3 space-y-2">
@@ -76,55 +79,41 @@ const PostFooter: React.FC<Props> = ({ caption, username, likeCount, commentsCou
       />
 
       {/* USERNAME + CAPTION */}
-      <div className="text-sm text-foreground leading-snug relative">
-        {!expanded ? (
-          <div className="inline">
-            <Link
-              to={`/u/${username}`}
-              className="font-semibold hover:underline"
-            >
-              {username}
-            </Link>{" "}
-            <span className="whitespace-pre-line">
-              {caption}
-            </span>
+      <div className="text-sm text-foreground leading-snug break-words">
+        <div className="inline">
+          <Link
+            to={`/u/${username}`}
+            className="font-semibold hover:underline mr-1"
+          >
+            {username}
+          </Link>
 
-            {shouldTruncate && (
-              <span
-                className="text-muted-foreground hover:underline cursor-pointer ml-1"
-                onClick={() => setExpanded(true)}
-              >
-                more
-              </span>
-            )}
-          </div>
-        ) : (
-          <div className="inline">
-            <Link
-              to={`/u/${username}`}
-              className="font-semibold hover:underline"
+          <span className="whitespace-pre-line">
+            {displayCaption}
+          </span>
+
+          {isLongCaption && !expanded && (
+            <button
+              onClick={() => setExpanded(true)}
+              className="text-muted-foreground hover:text-foreground ml-1 font-medium"
             >
-              {username}
-            </Link>{" "}
-            <span className="whitespace-pre-line">
-              {caption}
-            </span>
-          </div>
-        )}
+              more
+            </button>
+          )}
+        </div>
 
         {/* TIME AGO */}
-        <p className="text-xs text-muted-foreground">
+        <p className="text-[10px] text-muted-foreground uppercase mt-1 tracking-wide">
           {formatTimeAgo(createdAt)}
         </p>
-
-        {/* COMMENT SHEET MODAL */}
-        <CommentSheet
-          open={showComments}
-          onClose={() => setShowComments(false)}
-          postId={postId}
-        />
-
       </div>
+
+      {/* COMMENT SHEET MODAL */}
+      <CommentSheet
+        open={showComments}
+        onClose={() => setShowComments(false)}
+        postId={postId}
+      />
     </footer>
   )
 }
