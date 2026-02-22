@@ -93,7 +93,7 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
         </div>
 
         {/* COMMENTS */}
-        <div className="px-4 pb-20 max-h-[60vh] overflow-y-auto space-y-3">
+        <div className="px-4 pb-20 max-h-[60vh] overflow-y-auto space-y-3 break-words">
           {comments.length === 0 ? (
             <div className="text-center text-muted-foreground py-10">
               <p className="text-sm">No comments yet.</p>
