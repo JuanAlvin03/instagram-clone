@@ -41,7 +41,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background p-4">
+    <div className="flex items-center justify-center min-h-screen sick-bg p-4">
       <Card className="w-full max-w-sm shadow-md">
         <CardContent className="p-6 space-y-6">
           <h1 className="text-center text-3xl font-semibold mb-4">MyGram</h1>

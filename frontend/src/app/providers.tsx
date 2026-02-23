@@ -12,14 +12,7 @@ const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     const init = async () => {
       await seedIfEmpty()
-
-      // Keep the timeout for debugging as you requested, 
-      // but usually, we'd just setReady(true) after seed
-      const timer = setTimeout(() => {
-        setReady(true);
-      }, 5000); // Reduced to 3s for a snappier feel, feel free to keep 5000
-
-      return () => clearTimeout(timer);
+      setReady(true);
     }
     init()
   }, [])
@@ -52,7 +45,7 @@ const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
           </div>
           
           <p className="text-xs text-slate-400 font-medium uppercase tracking-widest">
-            From Juan Alvin
+            By Juan Alvin
           </p>
         </div>
       </div>

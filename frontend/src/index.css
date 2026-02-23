@@ -60,6 +60,20 @@ body,
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+.sick-bg {
+  background: linear-gradient(
+    135deg,
+   /* #305399 0%,*/
+   /* #305399 2%,*/
+    #EDED09 0%,
+    #255AC5 40%,
+    #32FA96 100%
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: -16px -16px;
+}
+
 a {
   font-weight: 600;
   color: #000000;

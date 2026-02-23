@@ -14,10 +14,10 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background p-4">
+    <div className="flex items-center justify-center min-h-screen sick-bg p-4">
       <Card className="w-full max-w-sm shadow-md">
         <CardContent className="p-6 space-y-6">
-          <h1 className="text-center text-3xl font-semibold mb-4">Sign Up</h1>
+          <h1 className="text-center text-3xl font-semibold mb-4">MyGram</h1>
 
           <div className="space-y-4">
             <Input
@@ -49,9 +49,9 @@ export default function RegisterPage() {
             </button>
           </div>
 
-          <p className="text-center text-sm text-gray-600">
+          <p className="text-center text-sm text-muted-foreground">
             Already have an account?{' '}
-            <Link to="/login" className="text-blue-500 font-medium">Log In</Link>
+            <Link to="/login" className="text-primary cursor-pointer">Log In</Link>
           </p>
 
           <p className="text-sm text-muted-foreground">
