@@ -104,7 +104,7 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
             comments.map(c => (
               <div key={c.id} className="flex gap-3 text-sm py-2">
                 {/* LEFT: Avatar (Now larger) */}
-                <Link to={c.user ? `/u/${c.user.username}` : "#"} className="flex-shrink-0">
+                <Link to={c.user ? `/u/${c.user.username}` : "#"} className="flex-shrink-0 pt-1">
                   <Avatar className="h-9 w-9 border border-border">
                     <AvatarImage 
                       src={c.user?.avatarKey ?? 'unknown.svg'} 
