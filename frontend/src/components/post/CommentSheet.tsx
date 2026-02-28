@@ -4,8 +4,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { db } from "@/db"
 import type { Comment, User } from "@/types/models"
 import { useAuthContext } from "@/app/AuthProvider"
-import { Link } from "react-router-dom"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import CommentItem from "./CommentItem"
 
 interface Props {
   open: boolean
@@ -102,35 +101,7 @@ const CommentSheet: React.FC<Props> = ({ open, onClose, postId, onCommentAdded }
             </div>
           ) : (
             comments.map(c => (
-              <div key={c.id} className="flex gap-3 text-sm py-2">
-                {/* LEFT: Avatar (Now larger) */}
-                <Link to={c.user ? `/u/${c.user.username}` : "#"} className="flex-shrink-0 pt-1">
-                  <Avatar className="h-9 w-9 border border-border">
-                    <AvatarImage 
-                      src={c.user?.avatarKey ?? 'unknown.svg'} 
-                      className="object-cover" 
-                    />
-                    <AvatarFallback>{c.user?.username[0]?.toUpperCase() || 'U'}</AvatarFallback>
-                  </Avatar>
-                </Link>
-
-                {/* RIGHT: Text Content */}
-                <div className="flex flex-col gap-0.5 pt-0.5">
-                  <div className="flex flex-col">
-                    <Link
-                      to={c.user ? `/u/${c.user.username}` : "#"}
-                      className="font-semibold hover:underline w-fit"
-                    >
-                      {c.user?.username ?? "Deleted user"}
-                    </Link>
-
-                    {/* Comment text below username */}
-                    <span className="text-foreground leading-relaxed break-words">
-                      {c.text}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <CommentItem key={c.id} comment={c} />
             ))
           )}
         </div>
