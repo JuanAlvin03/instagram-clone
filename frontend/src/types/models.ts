@@ -1,4 +1,3 @@
-// Minimal shared types for the demo app
 export type ID = string
 
 export type Follow = {
