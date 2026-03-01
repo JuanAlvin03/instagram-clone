@@ -1,6 +1,6 @@
 // src/pages/PostPage.tsx
 import React, { useEffect, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { db } from "@/db"
 import type { Post, /*User*/ } from "@/types/models"
 import PostFullPage from "@/components/post/PostFullPage"
@@ -40,7 +40,19 @@ const PostPage: React.FC = () => {
     }
   }, [postId])
 
-  if (!post) return null
+  if (!post) return 
+  <div className="flex flex-col items-center justify-center py-20 text-center">
+    <h1 className="text-3xl font-bold mb-2">Post Not Found</h1>
+    <p className="text-muted-foreground mb-6">
+      The post you're looking for doesn't exist.
+    </p>
+    <Link
+      to="/"
+      className="px-4 py-2 rounded-lg bg-secondary text-primary-foreground hover:opacity-90 transition"
+    >
+      Go Back Home
+    </Link>
+  </div>
 
   return <PostFullPage post={post}/>
 }
