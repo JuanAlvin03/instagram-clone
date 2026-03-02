@@ -34,7 +34,7 @@ const CommentItem: React.FC<Props> = ({ comment }) => {
   }
 
   return (
-    <div className="flex gap-3 text-sm py-2">
+    <div className="flex gap-3 text-sm py-2 min-w-0">
       <Link to={c.user ? `/u/${c.user.username}` : "#"} className="flex-shrink-0 pt-1">
         <Avatar className="h-9 w-9 border border-border">
           <AvatarImage src={c.user?.avatarKey ?? 'unknown.svg'} className="object-cover" />
@@ -42,7 +42,7 @@ const CommentItem: React.FC<Props> = ({ comment }) => {
         </Avatar>
       </Link>
 
-      <div className="flex flex-col gap-0.5 pt-0.5">
+      <div className="flex flex-col gap-0.5 pt-0.5 min-w-0">
         <div className="flex flex-wrap items-center">
           <Link
             to={c.user ? `/u/${c.user.username}` : "#"}
