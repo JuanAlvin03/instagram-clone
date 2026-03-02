@@ -71,7 +71,7 @@ const PostPage: React.FC = () => {
         </p>
         <Link
           to="/"
-          className="px-6 py-2 rounded-full bg-primary text-primary-foreground hover:opacity-90 transition font-medium"
+          className="px-4 py-2 rounded-lg bg-secondary text-primary-foreground hover:opacity-90 transition"
         >
           Go Back Home
         </Link>
