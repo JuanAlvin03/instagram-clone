@@ -27,14 +27,14 @@ const Router: React.FC = () => {
   const { userId } = useAuthContext()   // ← check login state!
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground">
+    <div className="flex min-h-screen bg-background text-foreground min-w-0">
       
       {/* Show side nav ONLY when logged in */}
       {userId && (
         <SidebarNav onCreateClick={() => setShowComposer(true)} />
       )}
 
-      <main className={`flex-1 flex justify-center px-2 py-4 sm:px-4 ${userId ? "md:ml-60" : ""}`}>
+      <main className={`min-w-0 flex-1 flex justify-center px-2 py-4 sm:px-4 ${userId ? "md:ml-60" : ""}`}>
         <div className="w-full mx-auto">
           <Routes>
             {/* Public route */}
