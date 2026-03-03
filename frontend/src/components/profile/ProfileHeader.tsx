@@ -27,6 +27,12 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
   const [isFollowing, setIsFollowing] = useState<boolean>(false)
   const [followRecordId, setFollowRecordId] = useState<string | null>(null)
 
+  const formatNumber = (num: number): string => {
+    if (num >= 1e6) return (num / 1e6).toFixed(1) + "M";
+    if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
+    return num.toString();
+  };
+
   useEffect(() => {
     setBio(user.bio ?? "")
   }, [user.bio])
@@ -167,7 +173,7 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
           {/* Stats (newline layout for ALL screen sizes) */}
           <div className="flex gap-4 text-sm sm:text-base">
             <div className="pr-2">
-              <strong>{postCount}</strong>
+              <strong>{formatNumber(postCount)}</strong>
               <div className="text-muted-foreground">posts</div>
             </div>
 
@@ -175,14 +181,14 @@ const ProfileHeader = ({ user, reloadUser }: Props) => {
               to={`/u/${user.username}/followers`}
               className="pr-2"
             >
-              <strong>{followerCount}</strong>
+              <strong>{formatNumber(followerCount)}</strong>
               <div className="text-muted-foreground">followers</div>
             </Link>
 
             <Link
               to={`/u/${user.username}/following`}
             >
-              <strong>{followingCount}</strong>
+              <strong>{formatNumber(followingCount)}</strong>
               <div className="text-muted-foreground">following</div>
             </Link>
           </div>

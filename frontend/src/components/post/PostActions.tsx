@@ -23,6 +23,12 @@ const PostActions: React.FC<Props> = ({ onOpenComments, postId }) => {
 
   const [copied, setCopied] = React.useState(false);
 
+  const formatNumber = (num: number): string => {
+    if (num >= 1e6) return (num / 1e6).toFixed(1) + "M";
+    if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
+    return num.toString();
+  };
+
   const handleShare = async () => {
     const url = `${window.location.origin}/p/${postId}`;
     try {
@@ -45,13 +51,13 @@ const PostActions: React.FC<Props> = ({ onOpenComments, postId }) => {
           ) : (
             <Heart className="w-6 h-6 hover:text-red-500 transition-colors" />
           )}
-          <span className="text-sm">{liveLikeCount}</span>
+          <span className="text-sm">{formatNumber(liveLikeCount)}</span>
         </div>
 
         {/* COMMENT */}
         <div className="flex items-center gap-1 cursor-pointer" onClick={onOpenComments}>
           <MessageCircle className="w-6 h-6 hover:text-blue-500 transition-colors" />
-          <span className="text-sm">{liveCommentsCount}</span>
+          <span className="text-sm">{formatNumber(liveCommentsCount)}</span>
         </div>
 
         {/* SHARE */}

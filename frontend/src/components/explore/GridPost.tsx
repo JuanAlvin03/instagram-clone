@@ -14,6 +14,12 @@ const GridPost: React.FC<Props> = ({ post, objectUrlsRef }) => {
   const [imgUrl, setImgUrl] = useState<string | null>(null)
   const navigate = useNavigate()
 
+  const formatNumber = (num: number): string => {
+    if (num >= 1e6) return (num / 1e6).toFixed(1) + "M";
+    if (num >= 1e3) return (num / 1e3).toFixed(1) + "K";
+    return num.toString();
+  };
+
   useEffect(() => {
     let mounted = true
 
@@ -78,13 +84,13 @@ const GridPost: React.FC<Props> = ({ post, objectUrlsRef }) => {
         {/* Likes */}
         <div className="flex items-center gap-1">
           <Heart className="w-5 h-5 fill-white" />
-          {post.likeCount ?? 0}
+          {formatNumber(post.likeCount ?? 0)}
         </div>
 
         {/* Comments */}
         <div className="flex items-center gap-1">
           <MessageCircle className="w-5 h-5 fill-white" />
-          {post.commentsCount ?? 0}
+          {formatNumber(post.commentsCount ?? 0)}
         </div>
       </div>
     </div>
