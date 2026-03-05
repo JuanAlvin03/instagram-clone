@@ -3,12 +3,14 @@ import { Link, Navigate, useLocation,  } from "react-router-dom";
 import { useAuthContext } from "../app/AuthProvider";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function RegisterPage() {
 
   const { userId } = useAuthContext()
   const location = useLocation()
 
+  // if have user id and token, redir to home
   if (userId) {
     return <Navigate to="/" replace state={{ from: location }} />
   }
@@ -23,30 +25,26 @@ export default function RegisterPage() {
             <Input
               type="text"
               placeholder="Username"
-              disabled
-              className="opacity-50 pointer-events-none"
+              className="w-full border rounded-md p-2 bg-muted text-foreground"
             />
 
             <Input
               type="text"
               placeholder="Full Name"
-              disabled
-              className="opacity-50 pointer-events-none"
+              className="w-full border rounded-md p-2 bg-muted text-foreground"
             />
 
             <Input
               type="password"
               placeholder="Password"
-              disabled
-              className="opacity-50 pointer-events-none"
+              className="w-full border rounded-md p-2 bg-muted text-foreground"
             />
 
-            <button
-              disabled
-              className="w-full p-3 bg-blue-500 text-white rounded-xl opacity-60 cursor-not-allowed"
+            <Button
+              type="submit" className="button-confirm darken-on-hover"
             >
               Sign Up
-            </button>
+            </Button>
           </div>
 
           <p className="text-center text-sm text-muted-foreground">
@@ -54,9 +52,6 @@ export default function RegisterPage() {
             <Link to="/login" className="text-primary cursor-pointer">Log In</Link>
           </p>
 
-          <p className="text-sm text-muted-foreground">
-            This is a demo app. Registration is disabled, but you can log in with one of the pre-defined users.
-          </p>
         </CardContent>
       </Card>
     </div>

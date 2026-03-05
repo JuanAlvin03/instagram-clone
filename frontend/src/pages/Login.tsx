@@ -36,6 +36,7 @@ export default function LoginPage() {
   const { userId } = useAuthContext()
   const location = useLocation()
 
+  // if have user id and token, redir to home
   if (userId) {
     return <Navigate to="/" replace state={{ from: location }} />
   }
@@ -48,25 +49,18 @@ export default function LoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-4">
 
-            {/* USER DROPDOWN */}
-            <select
-              className="w-full border rounded-md p-2 bg-muted text-foreground"
-              value={selectedUserId}
-              onChange={(e) => setSelectedUserId(e.target.value)}
-            >
-              <option value="">Select user…</option>
-              {users.map(u => (
-                <option key={u.id} value={u.id}>
-                  {u.username}
-                </option>
-              ))}
-            </select>
-
-            {/* DISABLED PASSWORD FIELD */}
+            {/* USER NAME */}
             <Input
-              placeholder="Password (disabled)"
-              disabled
-              className="opacity-50 pointer-events-none"
+              type="text"
+              placeholder="Username"
+              className="w-full border rounded-md p-2 bg-muted text-foreground"
+            />
+
+            {/* PASSWORD FIELD */}
+            <Input
+              placeholder="Password"
+              type="password"
+              className="w-full border rounded-md p-2 bg-muted text-foreground"
             />
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -76,7 +70,7 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          {/* SIGN UP LINK (dummy for now) */}
+          {/* SIGN UP LINK*/}
           <p className="text-center text-sm text-muted-foreground">
             Don’t have an account?{" "}
             <Link to="/register" className="text-primary cursor-pointer">
@@ -84,10 +78,6 @@ export default function LoginPage() {
             </Link>
           </p>
 
-          {/* INFO */}
-          <p className="text-sm text-muted-foreground">
-            This is a demo app. Select any user and log in without a password. Data is stored locally in your browser. Changes you make will not be visible to others.
-          </p>
         </CardContent>
       </Card>
     </div>
