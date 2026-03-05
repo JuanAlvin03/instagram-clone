@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { useParams, useOutletContext, Link } from "react-router-dom"
-import { db } from "@/db"
+import axios from "axios"
 import type { User } from "@/types/models"
 import ProfileHeader from "@/components/profile/ProfileHeader"
 import ProfileGrid from "@/components/profile/ProfileGrid"
+
+const API_BASE_URL = "http://localhost:3000/api/v1"
 
 const UserProfilePage = () => {
   const { username } = useParams()
@@ -12,8 +14,12 @@ const UserProfilePage = () => {
   useEffect(() => {
     if (!username) return
     ;(async () => {
-      const found = await db.users.where("username").equals(username).first()
-      setUser(found ?? null)
+      try {
+        const resp = await axios.get(`${API_BASE_URL}/users/${username}`)
+        setUser(resp.data)
+      } catch (err: unknown) {
+        setUser(null)
+      }
     })()
   }, [username])
 
@@ -33,8 +39,13 @@ const UserProfilePage = () => {
   )
 
   const reloadUser = async () => {
-    const fresh = await db.users.where("username").equals(username!).first()
-    setUser(fresh!)
+    if (!username) return
+    try {
+      const resp = await axios.get(`${API_BASE_URL}/users/${username}`)
+      setUser(resp.data)
+    } catch {
+      setUser(null)
+    }
   }
 
   return (

@@ -5,7 +5,7 @@ const { generateAccessToken, generateRefreshToken } = require("../utils/jwt.util
 
 // REGISTER
 exports.register = async (req, res) => {
-  const { username, password } = req.body
+  const { username, password, fullName } = req.body
 
   // Validate username
   if (!username || username.trim().length === 0) {
@@ -22,9 +22,9 @@ exports.register = async (req, res) => {
   if (existing) return res.status(400).json({ message: "User already exists" })
 
   const hashed = await hashPassword(password)
-  const user = await userModel.createUser(username, hashed)
+  const user = await userModel.createUser(username, hashed, fullName)
 
-  res.status(201).json({ id: user.id, username: user.username })
+  res.status(201).json({ id: user.id, username: user.username, name: fullName || null })
 }
 
 // LOGIN

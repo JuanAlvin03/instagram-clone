@@ -16,14 +16,25 @@ const findById = async (id) => {
   return rows[0]
 }
 
-const createUser = async (username, password) => {
-  const { rows } = await pool.query(
-    `INSERT INTO users (username, password)
-     VALUES ($1, $2)
-     RETURNING id, username`,
-    [username, password]
-  )
-  return rows[0]
+const createUser = async (username, password, fullName = null) => {
+  // if fullName provided, try to insert it as well; otherwise fall back to original
+  if (fullName) {
+    const { rows } = await pool.query(
+      `INSERT INTO users (username, password, name)
+       VALUES ($1, $2, $3)
+       RETURNING id, username, name`,
+      [username, password, fullName]
+    )
+    return rows[0]
+  } else {
+    const { rows } = await pool.query(
+      `INSERT INTO users (username, password)
+       VALUES ($1, $2)
+       RETURNING id, username`,
+      [username, password]
+    )
+    return rows[0]
+  }
 }
 
 const saveRefreshToken = async (userId, token) => {
