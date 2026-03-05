@@ -7,13 +7,24 @@ const { generateAccessToken, generateRefreshToken } = require("../utils/jwt.util
 exports.register = async (req, res) => {
   const { username, password } = req.body
 
+  // Validate username
+  if (!username || username.trim().length === 0) {
+    return res.status(400).json({ message: "Username is required" })
+  }
+  if (username.length > 25) {
+    return res.status(400).json({ message: "Username must be 25 characters or less" })
+  }
+  if (/[\s\/,@#$%^&*()+=\[\]{};:'"|\\\<>?`~]/.test(username)) {
+    return res.status(400).json({ message: "Username contains invalid characters" })
+  }
+
   const existing = await userModel.findByUsername(username)
   if (existing) return res.status(400).json({ message: "User already exists" })
 
   const hashed = await hashPassword(password)
   const user = await userModel.createUser(username, hashed)
 
-  res.status(201).json(user)
+  res.status(201).json({ id: user.id, username: user.username })
 }
 
 // LOGIN
@@ -38,7 +49,7 @@ exports.login = async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000
   })
 
-  res.json({ accessToken })
+  res.json({ accessToken, userId: user.id, username: user.username })
 }
 
 // REFRESH TOKEN

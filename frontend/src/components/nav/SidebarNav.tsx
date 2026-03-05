@@ -7,30 +7,24 @@ import { useEffect, useState } from "react"
 import NavItem from "./NavItem"
 import MoreMenu from "./MoreMenu"
 import LogoutConfirm from "../common/LogoutConfirm"
+import axios from "axios"
 interface NavbarProps {
   onCreateClick: () => void
 }
 
 const SidebarNav = ({ onCreateClick }: NavbarProps) => {
-  const { userId, logout } = useAuthContext()
+  const { userId, username, logout } = useAuthContext()
   const [user, setUser] = useState<any>(null)
   const [openMore, setOpenMore] = useState(false)
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!userId) return
-    db.users.get(userId).then(setUser)
-  }, [userId])
-
-  const currentUsername = user?.username ?? null
-
   const navItems = [
     { to: "/", icon: <Home className="w-6 h-6" />, label: "Home" },
     { to: "/explore", icon: <Compass className="w-6 h-6" />, label: "Explore" },
     { to: "#", icon: <PlusSquare className="w-6 h-6" />, label: "Create", action: "openComposer" },
-    currentUsername && {
-      to: `/u/${currentUsername}`,
+    username && {
+      to: `/u/${username}`,
       icon: <User className="w-6 h-6" />,
       label: "Profile",
     },
@@ -47,6 +41,10 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
   // user confirmed logout
   const handleConfirmLogout = () => {
     setShowLogoutConfirm(false)
+    // perform logout action
+    axios.post("http://localhost:3000/api/v1/auth/logout", {}, { withCredentials: true }).catch(() => {
+      // even if logout request fails (e.g. network error), still clear local auth state
+    })
     logout()
     navigate("/login", { replace: true })
   }
@@ -92,7 +90,7 @@ const SidebarNav = ({ onCreateClick }: NavbarProps) => {
           <MoreMenu
             onClose={() => setOpenMore(false)}
             onRequestLogout={handleRequestLogout}
-            currentUsername={currentUsername}
+            currentUsername={username?.toLowerCase() || "unknown"}
           />
         )}
       </div>

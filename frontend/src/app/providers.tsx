@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { HashRouter } from 'react-router-dom'
 import { db } from '../db'
-import { seedIfEmpty } from '../db/seed'
+//import { seedIfEmpty } from '../db/seed'
 import { DexieContext } from './db'
 import { Spinner } from '@/components/ui/spinner'
 
@@ -11,7 +11,7 @@ const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     const init = async () => {
-      await seedIfEmpty()
+      //await seedIfEmpty()
       setReady(true);
     }
     init()

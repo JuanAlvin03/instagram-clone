@@ -3,7 +3,9 @@ import { useAuth } from "../hooks/useAuth"
 
 type AuthContextType = {
   userId: string | null
-  login: (id: string) => void
+  username: string | null
+  accessToken: string | null
+  login: (id: string, username: string, token: string) => void
   logout: () => void
 }
 

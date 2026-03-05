@@ -1,36 +1,52 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useNavigate, Link, Navigate, useLocation } from "react-router-dom"
 import { useAuthContext } from "../app/AuthProvider"
-import { db } from "../db"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import type { User } from "@/types/models"
+import axios from "axios"
+
+const API_BASE_URL = "http://localhost:3000/api/v1"
 
 export default function LoginPage() {
 
   const navigate = useNavigate()
   const { login } = useAuthContext()
-  const [users, setUsers] = useState<User[]>([])
-  const [selectedUserId, setSelectedUserId] = useState("")
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
   const [error, setError] = useState("")
-  
-  // Load all seeded users from Dexie
-  useEffect(() => {
-    db.users.toArray().then(setUsers)
-  }, [])
+  const [isLoading, setIsLoading] = useState(false)
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     setError("")
 
-    if (!selectedUserId) {
-      setError("Please select a user.")
+    if (!username.trim() || !password.trim()) {
+      setError("Please enter username and password.")
       return
     }
 
-    login(selectedUserId)
-    navigate("/", { replace: true })
+    setIsLoading(true)
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/auth/login`,
+        { username, password },
+        { withCredentials: true }
+      )
+
+      const { userId, username: returnedUsername, accessToken } = response.data
+
+      login(userId, returnedUsername, accessToken)
+      navigate("/", { replace: true })
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(err.response?.data?.message || "Login failed. Please try again.")
+      } else {
+        setError("An unexpected error occurred.")
+      }
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const { userId } = useAuthContext()
@@ -53,6 +69,9 @@ export default function LoginPage() {
             <Input
               type="text"
               placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              disabled={isLoading}
               className="w-full border rounded-md p-2 bg-muted text-foreground"
             />
 
@@ -60,13 +79,20 @@ export default function LoginPage() {
             <Input
               placeholder="Password"
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoading}
               className="w-full border rounded-md p-2 bg-muted text-foreground"
             />
 
             {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            <Button type="submit" className="button-confirm darken-on-hover">
-              Log in
+            <Button 
+              type="submit" 
+              disabled={isLoading}
+              className="button-confirm darken-on-hover"
+            >
+              {isLoading ? "Logging in..." : "Log in"}
             </Button>
           </form>
 
