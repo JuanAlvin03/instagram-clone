@@ -8,6 +8,6 @@ exports.getByUsername = async (req, res) => {
     return res.status(404).json({ message: "User not found" })
   }
   // return minimal public profile information
-  res.json({ id: user.id, username: user.username, name: user.full_name || null })
+  res.json({ id: user.id, username: user.username, name: user.name || null })
 }
 

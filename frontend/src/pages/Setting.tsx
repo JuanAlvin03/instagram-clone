@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { useAuthContext } from "@/app/AuthProvider"
 import { LogOut } from "lucide-react"
 import LogoutConfirm from "@/components/common/LogoutConfirm"
+import axios from "axios"
 
 const Setting: React.FC = () => {
   const { /*userId: currentUserId,*/ logout } = useAuthContext()
@@ -16,6 +17,9 @@ const Setting: React.FC = () => {
 
   const confirmLogout = () => {
     setShowConfirm(false)
+    axios.post("http://localhost:3000/api/v1/auth/logout", {}, { withCredentials: true }).catch(() => {
+      // even if logout request fails (e.g. network error), still clear local auth state
+    })
     logout()
     navigate("/login", { replace: true })
   }
